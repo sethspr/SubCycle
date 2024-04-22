@@ -19,34 +19,44 @@ To get started with SubCycle, follow these steps:
 
 2. Setup: Install dependencies and set up your environment.
 
-    ```cd subcycle
+    ```bash
+    cd subcycle
     pip install -r requirements.txt
 
 3. Database Initialization: Initialize the database and apply migrations.
 
-    ```flask db init
+    ```bash
+    flask db init
     flask db migrate
     flask db upgrade
 
 4. Run the Application: Start the Flask development server.
 
-    ```flask run
+    ```bash
+    flask run
 
 5. Access SubCycle: Open your web browser and navigate to http://localhost:5000 to access SubCycle.
 
-Usage
-User Registration: Sign up for a SubCycle account to get started.
-Subscription Management: Add, edit, or delete your streaming subscriptions.
-Escrow Funding: Fund your escrow account once a month to cover your subscription payments.
-Payment Dispersal: SubCycle automatically disperses payments to your subscriptions on their due dates.
-Technologies Used
-Python: Backend development using the Flask framework.
-SQLAlchemy: Database ORM for interacting with the database.
-React: Frontend development for the user interface.
-HTML/CSS: Styling and layout of the web application.
-Contributing
+## Usage
+
+- **User Registration**: Sign up for a SubCycle account to get started.
+- **Subscription Management**: Add, edit, or delete your streaming subscriptions.
+- **Escrow Funding**: Fund your escrow account once a month to cover your subscription payments.
+- **Payment Dispersal**: SubCycle automatically disperses payments to your subscriptions on their due dates.
+
+## Technologies Used
+
+- **Python**: Backend development using the Flask framework.
+- **SQLAlchemy**: Database ORM for interacting with the database.
+- **React**: Frontend development for the user interface.
+- **HTML/CSS**: Styling and layout of the web application.
+
+## Contributing
+
 Contributions to SubCycle are welcome! If you have any suggestions, feature requests, or bug reports, please open an issue or submit a pull request.
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
