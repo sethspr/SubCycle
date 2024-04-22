@@ -50,4 +50,4 @@ class Transaction(db.model, SerializerMixin):
     escrow_id = db.Column(db.Integer, db.ForeignKey('escrow_accounts.id'))
     subscription_id = db.Column(db.Integer, db.ForeignKey('subscriptions.id'))
     amount = db.Column(db.Decimal(10, 2)) #10 digits total, 2 after decimal point
-    date = db.Column(db.DateTime, default=datetime.utcnow)
+    date = db.Column(db.DateTime, serve_defualt = db.func.now())
