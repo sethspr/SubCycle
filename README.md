@@ -20,8 +20,9 @@ To get started with SubCycle, follow these steps:
 2. Setup: Install dependencies and set up your environment.
 
     ```bash
-    cd subcycle
-    pip install -r requirements.txt
+    cd server
+    pipenv install
+    pipenv shell
 
 3. Database Initialization: Initialize the database and apply migrations.
 
@@ -29,13 +30,18 @@ To get started with SubCycle, follow these steps:
     flask db init
     flask db migrate
     flask db upgrade
+    python seed.py
 
 4. Run the Application: Start the Flask development server.
 
     ```bash
     flask run
 
-5. Access SubCycle: Open your web browser and navigate to http://localhost:5000 to access SubCycle.
+5. Access SubCycle frontend. Run the commands below. Then, open your web browser and navigate to http://localhost:5000 (your port may vary from this) to access SubCycle.
+
+    ```bash
+    cd client
+    npm run dev
 
 ## Usage
 
