@@ -1,6 +1,10 @@
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.ext.hybrid import hybrid_property
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+# from sqlalchemy.ext.hybrid import hybrid_property
 # from config import db, bcrypt
+
+db = SQLAlchemy()
 
 class User(db.model, SerializerMixin):
     __tablename__='users'
