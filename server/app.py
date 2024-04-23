@@ -1,5 +1,5 @@
 from flask import Flask, request, session, jsonify
-from models import db, User, Subscription, EscrowAccount, Transaction
+from models import db, User, Subscription, EscrowAccount, Transaction, Service
 # from config import app, db
 import os
 from flask_migrate import Migrate;
