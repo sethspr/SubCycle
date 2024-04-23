@@ -1,6 +1,7 @@
 import random
 from app import app
 from models import db, User, Subscription, EscrowAccount, Transaction
+from datetime import datetime
 
 with app.app_context():
 
@@ -137,8 +138,78 @@ with app.app_context():
     print('adding transactions...')
     transactions = [
         Transaction(
-            amount='',
-            date=''
-        )
+            escrow_id=escrow_accounts[0].id,
+            subscription_id=subscriptions[0].id,
+            amount=subscriptions[0].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[0].id,
+            subscription_id=subscriptions[1].id,
+            amount=subscriptions[1].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[0].id,
+            subscription_id=subscriptions[2].id,
+            amount=subscriptions[2].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[1].id,
+            subscription_id=subscriptions[3].id,
+            amount=subscriptions[3].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[1].id,
+            subscription_id=subscriptions[0].id,
+            amount=subscriptions[0].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[1].id,
+            subscription_id=subscriptions[5].id,
+            amount=subscriptions[5].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[2].id,
+            subscription_id=subscriptions[6].id,
+            amount=subscriptions[6].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[2].id,
+            subscription_id=subscriptions[4].id,
+            amount=subscriptions[4].amount,
+            date=datetime.db.func.now()
+        ),
+        Transaction(
+            escrow_id=escrow_accounts[2].id,
+            subscription_id=subscriptions[3].id,
+            amount=subscriptions[3].amount,
+            date=datetime.db.func.now()
+        ),
+        
+        
+        # Transaction(
+        #     escrow_id=escrow_accounts[0].id,
+        #     subscription_id=subscriptions[0].id,
+        #     amount=subscriptions[0].amount,
+        #     date=datetime.db.func.now()
+        # ),
+
+        # Transaction(
+        #     escrow_id='',
+        #     subscription_id='',
+        #     amount='',
+        #     date=''
+        # ),
     ]
+
+    db.session.add_all(transactions)
+    db.session.commit()
+
+    print('See data generation completed.')
 

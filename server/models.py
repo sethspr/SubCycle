@@ -6,7 +6,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-class User(db.model, SerializerMixin):
+class User(db.Model, SerializerMixin):
     __tablename__='users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +22,7 @@ class User(db.model, SerializerMixin):
     #@hybrid_property
     #@password.setter
 
-class Subscription(db.model, SerializerMixin):
+class Subscription(db.Model, SerializerMixin):
     __tablename__='subscriptions'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -36,14 +36,14 @@ class Subscription(db.model, SerializerMixin):
 
     #add seralization rules
 
-class EscrowAccount(db.model, SerializerMixin):
+class EscrowAccount(db.Model, SerializerMixin):
     __tablename__='escrow_accounts'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     balance =db.Column(db.Decimal(10, 2)) #10 digits total, 2 after decimal point
 
-class Transaction(db.model, SerializerMixin):
+class Transaction(db.Model, SerializerMixin):
     __tablename__='transactions'
 
     id = db.Column(db.Integer, primary_key=True)
