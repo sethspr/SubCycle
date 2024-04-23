@@ -103,9 +103,9 @@ with app.app_context():
         # ), 
     ]
 
-    for sub_data in subscriptions:
-        db.session.add(sub_data)
-    # db.session.add_all(subscriptions)
+    # for sub_data in subscriptions:
+    #     db.session.add(sub_data)
+    db.session.add_all(subscriptions)
     db.session.commit()
 
     #escrow instances

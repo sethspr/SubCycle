@@ -41,6 +41,7 @@ To get started with SubCycle, follow these steps:
 
     ```bash
     cd client
+    npm install
     npm run dev
 
 ## Usage
