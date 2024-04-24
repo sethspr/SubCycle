@@ -26,8 +26,8 @@ class User(db.Model, SerializerMixin):
     escrow_accounts = db.relationship('EscrowAccount', back_populates='user')
     
     #add serialization rules
-    serialize_rules = ['-subscriptions', '-escrow_accounts']
-    
+    serialize_rules = ['-subscriptions', '-escrow_accounts', '-password']
+
 
     #password encryption with bcrypt
     #@hybrid_property
@@ -57,7 +57,7 @@ class EscrowAccount(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    balance =db.Column(db.Float(10, 2)) #10 digits total, 2 after decimal point
+    balance = db.Column(db.Float)
 
     user = db.relationship('User', back_populates='escrow_accounts')
     transactions = db.relationship('Transaction', back_populates='escrow_account')
@@ -70,7 +70,7 @@ class Transaction(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     escrow_id = db.Column(db.Integer, db.ForeignKey('escrow_accounts.id'))
     subscription_id = db.Column(db.Integer, db.ForeignKey('subscriptions.id'))
-    amount = db.Column(db.Float(10, 2)) #10 digits total, 2 after decimal point
+    amount = db.Column(db.Float)
     date = db.Column(db.DateTime, server_default = db.func.now())
 
     escrow_account = db.relationship('EscrowAccount', back_populates='transactions')
@@ -84,7 +84,7 @@ class Service(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     company_name = db.Column(db.String)
     description = db.Column(db.String)
-    amount = db.Column(db.Float(10, 2)) #10 digits total, 2 after decimal point
+    amount = db.Column(db.Float)
 
 
     subscriptions = db.relationship('Subscription', back_populates='service')
