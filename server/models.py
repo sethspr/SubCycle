@@ -89,4 +89,4 @@ class Service(db.Model, SerializerMixin):
 
     subscriptions = db.relationship('Subscription', back_populates='service')
 
-    serialize_rules = ['-subscriptions.service']
+    serialize_rules = ['-subscriptions']

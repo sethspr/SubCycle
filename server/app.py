@@ -107,9 +107,50 @@ def account_by_id(id):
     if account_id:
         return account_id.to_dict(), 200
     else:
-        return {'Error': 'Account does not exists'}, 404
+        return {'Error': 'Account not found'}, 404
 
 ### ------------------------------------------------###------------------------------------------------ ###
+
+@app.route('/transactions', methods=['GET'])
+def get_all_transactions():
+    all_transactions = Transaction.query.all()
+
+    transaction_dict = []
+    for transaction in all_transactions:
+        transaction_dict.append(transaction.to_dict())
+    return transaction_dict, 200
+
+@app.route('/transactions/<int:id>', methods=['GET'])
+def transaction_by_id(id):
+    transaction_id = Transaction.query.filter(Transaction.id == id).first()
+
+    if transaction_id:
+        return transaction_id.to_dict(), 200
+    else:
+        return {'Error': 'Transaction not found'}, 404
+
+### ------------------------------------------------###------------------------------------------------ ###
+
+@app.route('/service', methods=['GET'])
+def get_all_services():
+    all_services = Service.query.all()
+
+    services_dict = []
+    for company in all_services:
+        services_dict.append(company.to_dict())
+    return services_dict, 200
+
+@app.route('/service/<int:id>', methods=['GET'])
+def service_by_id(id):
+    service_id = Service.query.filter(Service.id == id).first()
+
+    if service_id:
+        return service_id.to_dict(), 200
+    else:
+        return {'Error': 'Subscription service not in database'}
+
+### ------------------------------------------------###------------------------------------------------ ###
+
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
