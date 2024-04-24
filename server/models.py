@@ -76,7 +76,7 @@ class Transaction(db.Model, SerializerMixin):
     escrow_account = db.relationship('EscrowAccount', back_populates='transactions')
     subscriptions = db.relationship('Subscription', back_populates='transactions')
 
-    serialize_rules = ['-escrow_account.transactions', '-subscriptions.transactions']
+    serialize_rules = ['-escrow_account', '-subscriptions']
 
 class Service(db.Model, SerializerMixin):
     __tablename__='services'

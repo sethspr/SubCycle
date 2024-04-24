@@ -51,7 +51,7 @@ def all_users():
         db.session.commit()
         return new_user.to_dict(), 201
 
-@app.route('/user/<string:username>', methods=['GET'])
+@app.route('/users/<string:username>', methods=['GET'])
 def user_profile(username):
     user = User.query.filter_by(username=username).first()
 
@@ -60,7 +60,7 @@ def user_profile(username):
     else:
         return {'Error': 'Username does not exist'}, 404
 
-@app.route('/user/<int:id>', methods=['GET'])
+@app.route('/users/<int:id>', methods=['GET'])
 def user_by_id(id):
     user_id = User.query.filter(User.id == id).first()
 
@@ -71,7 +71,7 @@ def user_by_id(id):
     
 ### ------------------------------------------------###------------------------------------------------ ###
 
-@app.route('/subscription', methods=['GET'])
+@app.route('/subscriptions', methods=['GET'])
 def get_all_subscriptions():
     all_subs = Subscription.query.all()
 
@@ -80,7 +80,7 @@ def get_all_subscriptions():
         subs_dict.append(subscription.to_dict())
     return subs_dict, 200
 
-@app.route('/subscription/<int:id>', methods=['GET'])
+@app.route('/subscriptions/<int:id>', methods=['GET'])
 def sub_by_id(id):
     sub_id = Subscription.query.filter(Subscription.id == id).first()
 
@@ -91,7 +91,7 @@ def sub_by_id(id):
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
-@app.route('/escrow', methods=['GET'])
+@app.route('/escrows', methods=['GET'])
 def get_all_accounts():
     all_accounts = EscrowAccount.query.all()
 
@@ -100,7 +100,7 @@ def get_all_accounts():
         account_dict.append(account.to_dict())
     return account_dict, 200
 
-@app.route('/escrow/<int:id>', methods=['GET'])
+@app.route('/escrows/<int:id>', methods=['GET'])
 def account_by_id(id):
     account_id = EscrowAccount.query.filter(EscrowAccount.id == id).first()
 
@@ -131,7 +131,7 @@ def transaction_by_id(id):
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
-@app.route('/service', methods=['GET'])
+@app.route('/services', methods=['GET'])
 def get_all_services():
     all_services = Service.query.all()
 
@@ -140,7 +140,7 @@ def get_all_services():
         services_dict.append(company.to_dict())
     return services_dict, 200
 
-@app.route('/service/<int:id>', methods=['GET'])
+@app.route('/services/<int:id>', methods=['GET'])
 def service_by_id(id):
     service_id = Service.query.filter(Service.id == id).first()
 
