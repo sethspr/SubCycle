@@ -39,7 +39,7 @@ class Subscription(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     service_id = db.Column(db.Integer, db.ForeignKey('services.id'))
-    due_date = db.Column(db.String)
+    due_date = db.Column(db.Integer)
 
 
     #add relationship
