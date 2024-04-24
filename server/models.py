@@ -38,8 +38,6 @@ class Subscription(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     service_id = db.Column(db.Integer, db.ForeignKey('services.id'))
-    sub_name = db.Column(db.String)
-    amount = db.Column(db.Float(10, 2)) #10 digits total, 2 after decimal point
     due_date = db.Column(db.String)
 
 
@@ -85,6 +83,8 @@ class Service(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     company_name = db.Column(db.String)
     description = db.Column(db.String)
+    amount = db.Column(db.Float(10, 2)) #10 digits total, 2 after decimal point
+
 
     subscriptions = db.relationship('Subscription', back_populates='service')
 

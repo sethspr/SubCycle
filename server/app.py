@@ -20,5 +20,14 @@ db.init_app(app)
 def root():
     return '<h1>SubCycle</h1>'
 
+@app.route('/user/<string:username>', methods=['GET'])
+def user_profile(username):
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        return user.to_dict(), 200
+    else:
+        return {'error': f'{user} not found'}, 404
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
