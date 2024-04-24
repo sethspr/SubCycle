@@ -26,7 +26,8 @@ class User(db.Model, SerializerMixin):
     escrow_accounts = db.relationship('EscrowAccount', back_populates='user')
     
     #add serialization rules
-    serialize_rules = ['-subscriptions.user', '-escrow_accounts.user']
+    serialize_rules = ['-subscriptions', '-escrow_accounts']
+    
 
     #password encryption with bcrypt
     #@hybrid_property
