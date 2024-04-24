@@ -48,67 +48,67 @@ with app.app_context():
 
     subscriptions = [
         Subscription(
-            due_date='17th of the Month',
+            due_date='17',
             user_id="1",
             service_id="1"
         ),
         Subscription(
-            due_date='4th of the Month',
+            due_date='4',
             user_id="2",
             service_id="2"
 
         ),
         Subscription(
-            due_date='8th of the Month',
+            due_date='8',
             user_id="3",
             service_id="3"
 
         ),
         Subscription(
 
-            due_date='23rd of the Month',
+            due_date='23',
             user_id="1",
             service_id="4"
 
         ),
         Subscription(
-            due_date='28th of the Month',
+            due_date='28',
             user_id="2",
             service_id="5"
 
         ),
         Subscription(
-            due_date='12th of the Month',
+            due_date='12',
             user_id="3",
             service_id="6"
 
         ),
         Subscription(
-            due_date='19th of the Month',
+            due_date='19',
             user_id="1",
             service_id="7"
 
         ), 
         Subscription(
-            due_date='2nd of the Month',
+            due_date='2',
             user_id='1',
             service_id="4"
 
         ), 
         Subscription(
-            due_date='11th of the Month',
+            due_date='11',
             user_id='2',
             service_id="5"
 
         ), 
         Subscription(
-            due_date='24th of the Month',
+            due_date='24',
             user_id='3',
             service_id="6"
 
         ), 
         Subscription(
-            due_date='27th of the Month',
+            due_date='27',
             user_id='1',
             service_id="7"
 
