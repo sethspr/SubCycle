@@ -1,6 +1,6 @@
 # SubCycle
 
-SubCycle is an budgeting escrow application designed to streamline the management of your online streaming subscriptions. With SubCycle, users can fund an escrow account once a month and have the app disperse payments on their true due dates during their respective billing cycle(s).
+SubCycle is a budgeting escrow application designed to streamline the management of your online streaming subscriptions. With SubCycle, users can fund an escrow account once a month and have the app disperse payments on their true due dates during their respective billing cycle(s).
 
 ## Features
 
