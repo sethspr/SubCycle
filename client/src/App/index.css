@@ -1,0 +1,40 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  background-color: #333; 
+  color: white; 
+  padding: 10px 20px; 
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f2f2f2;
+  padding: 10px 20px;
+}
+
+.top-header h1 {
+  margin: 0; /* Remove default margin */
+  padding-right: 10px;
+}
+
+.navbar ul {
+  display: flex; 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+.navbar ul li {
+  margin-right: 20px; /* Add spacing between list items */
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar ul li:last-child {
+  margin-right: 0; /* Remove margin from the last list item to prevent extra spacing */
+}
+
