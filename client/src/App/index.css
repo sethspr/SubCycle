@@ -1,3 +1,9 @@
+* {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -19,6 +25,9 @@
 .top-header h1 {
   margin: 0; /* Remove default margin */
   padding-right: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .navbar ul {
@@ -37,4 +46,10 @@
 .navbar ul li:last-child {
   margin-right: 0; /* Remove margin from the last list item to prevent extra spacing */
 }
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 
