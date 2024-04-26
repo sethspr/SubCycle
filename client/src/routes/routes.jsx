@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Home';
-import SubscriptionList from './SubscriptionList';
-import About from './About';
-import Login from './Login';
+import Home from '../components/Home';
+import SubscriptionList from '../components/SubscriptionList';
+import About from '../components/About';
+import Login from '../components/Login';
 
 const AppRoutes = () => (
   <Routes>

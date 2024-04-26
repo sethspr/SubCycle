@@ -1,8 +1,8 @@
 // App.jsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './Navbar';
-import AppRoutes from './Routes';
+import AppRoutes from '../routes/routes';
+import Navbar from '../components/Navbar';
 
 const App = () => {
   return (
