@@ -1,12 +1,10 @@
-from flask import Flask, request, session, jsonify
+from flask import Flask, request, redirect, url_for, flash, render_template
 from flask_cors import CORS
+from flask_login import LoginManager, login_manager, login_user, login_required, logout_user
 from models import db, User, Subscription, EscrowAccount, Transaction, Service
-# from config import app, db
-import os
 from flask_migrate import Migrate;
+import os
 
-# BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-# DATABASE = os.environ.get("DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
 app = Flask(__name__)
 
 CORS(app)
@@ -17,6 +15,43 @@ app.json.compact = False
 
 migrate = Migrate(app, db)
 db.init_app(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+### ------------------------------------------------###------------------------------------------------ ###
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if user and user.check_password(password):  # Implement a method to check the password
+            login_user(user)
+            flash('Logged in successfully.')
+            return redirect(url_for('index'))  # Redirect to the index page after login
+        else:
+            flash('Invalid username or password.')
+    return render_template('login.html')
+
+
+from flask_login import logout_user
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('Logged out successfully.')
+    return redirect(url_for('index'))
+
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
