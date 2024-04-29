@@ -26,7 +26,6 @@ function Login() {
           // Redirect to home page or any other protected route
           navigate.push("/");
         } else {
-          // Handle login error (e.g., display error message)
           console.error("Login failed");
         }
       })

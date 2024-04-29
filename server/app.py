@@ -36,11 +36,9 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):  # Implement a method to check the password
             login_user(user)
-            flash('Logged in successfully.')
-            return redirect(url_for('index'))  # Redirect to the index page after login
+            return user.to_dict(), 200   # Redirect to the index page after login
         else:
-            flash('Invalid username or password.')
-    return render_template('login.html')
+            return {'error': 'invalid' }, 400
 
 
 from flask_login import logout_user
@@ -57,7 +55,7 @@ def logout():
 
 @app.route('/')
 def root():
-    return '<h1>SubCycle</h1>'
+    return '<h1>Hello from SubCycle</h1>'
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
