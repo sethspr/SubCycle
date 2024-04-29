@@ -27,7 +27,7 @@ function SubscriptionList() {
     <div>
       <h1>Supported Subscriptions</h1>
       {subscriptions.map(service => (
-        <div key={service.company_name}>
+        <div key={service.id}>
           <h2>{service.company_name}</h2>
           <p>{service.description}</p>
           <p>Monthly Cost: {service.amount}</p>
