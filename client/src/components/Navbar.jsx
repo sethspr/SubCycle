@@ -13,7 +13,7 @@ const Navbar = () => {
           <li><Link to='/subscriptions'>Subscriptions</Link></li>
           <li><Link to='/about'>About</Link></li>
           {user ? (
-            <li><Link to='logout'>Logout</Link></li>
+            <li><Link to='/logout'>Logout</Link></li>
           ) : (
             <li><Link to='/login'>Login</Link></li>
           )}
