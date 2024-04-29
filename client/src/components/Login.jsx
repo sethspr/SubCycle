@@ -14,7 +14,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send login request to the backend
-    fetch("http://localhost:5555/login", {
+    fetch("http://127.0.0.1:5555/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,9 +24,8 @@ function Login() {
       .then((response) => {
         if (response.ok) {
           // Redirect to home page or any other protected route
-          navigate.push("/");
+          navigate("/");
         } else {
-          // Handle login error (e.g., display error message)
           console.error("Login failed");
         }
       })

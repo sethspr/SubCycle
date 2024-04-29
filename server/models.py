@@ -1,21 +1,10 @@
 from sqlalchemy_serializer import SerializerMixin
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-from datetime import datetime
-from flask_login import LoginManager, UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-# from sqlalchemy.ext.hybrid import hybrid_property
-# from config import db, bcrypt
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import validates
+from config import bcrypt, db
 
-metadata = MetaData(
-    naming_convention={
-        "fk": "fk%(table_name)s%(column_0_name)s%(referred_table_name)s",
-    }
-)
 
-db = SQLAlchemy(metadata=metadata)
-
-class User(db.Model, SerializerMixin, UserMixin):
+class User(db.Model, SerializerMixin):
     __tablename__='users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -23,11 +12,19 @@ class User(db.Model, SerializerMixin, UserMixin):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+    @hybrid_property
+    def password(self):
+        return self.password_hash
 
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+    @password.setter
+    def password(self, new_password):
+        pass_hash = bcrypt.generate_password_hash(new_password.encode('utf-8'))
+        self.password_hash = pass_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        if password is not None:
+            return bcrypt.check_password_hash(self.password_hash, password.encode('utf-8'))
+        return False
 
     #add relationship
     subscriptions = db.relationship('Subscription', back_populates='user')
@@ -36,10 +33,6 @@ class User(db.Model, SerializerMixin, UserMixin):
     #add serialization rules
     serialize_rules = ['-subscriptions', '-escrow_accounts', '-password']
 
-    
-    #password encryption with bcrypt
-    #@hybrid_property
-    #@password.setter
 
 class Subscription(db.Model, SerializerMixin):
     __tablename__='subscriptions'
