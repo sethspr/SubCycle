@@ -1,54 +1,10 @@
-from flask import Flask, request, redirect, url_for, flash, render_template
-from flask_cors import CORS
-from flask_login import LoginManager, login_manager, login_user, login_required, logout_user
+from flask import Flask, request, session
 from models import db, User, Subscription, EscrowAccount, Transaction, Service
-from flask_migrate import Migrate;
-import os
-
-app = Flask(__name__)
-
-CORS(app)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI", f"sqlite:///app.db")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.json.compact = False
-
-migrate = Migrate(app, db)
-db.init_app(app)
+from config import app, db
+from flask_login import LoginManager, login_manager, login_user, login_required, logout_user
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-### ------------------------------------------------###------------------------------------------------ ###
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):  # Implement a method to check the password
-            login_user(user)
-            return user.to_dict(), 200   # Redirect to the index page after login
-        else:
-            return {'error': 'invalid' }, 400
-
-
-from flask_login import logout_user
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    flash('Logged out successfully.')
-    return redirect(url_for('index'))
 
 
 ### ------------------------------------------------###------------------------------------------------ ###
@@ -184,6 +140,33 @@ def service_by_id(id):
         return service_id.to_dict(), 200
     else:
         return {'Error': 'Subscription service not in database'}
+
+### ------------------------------------------------###------------------------------------------------ ###
+
+@app.route('/login', methods=['POST'])
+def login():
+    json = request.get_json()
+    user = User.query.filter(User.username == json.get('username')).first()
+    if not user or not user.authenticate(json.get('password')):
+        return {'error': 'Invalid username or password'}, 401
+    session['user_id'] = user.id
+    return user.to_dict(rules=('-subscriptions', '-password_hash', '-escrow_accounts')), 200
+
+@app.route('/logout', methods=['DELETE'])
+def logout():
+    if not session.get('user_id'):
+        return {'error': 'Not logged in'}, 401
+    session['user_id'] = None
+    session['username'] = None
+    return {'message':'Goodbye'}, 200
+
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    user = User.query.filter_by(id = session.get('user_id')).first()
+    if user:
+        return user.to_dict(), 200
+    else:
+        return {}, 401
 
 ### ------------------------------------------------###------------------------------------------------ ###
 

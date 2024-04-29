@@ -1,23 +1,10 @@
 from sqlalchemy_serializer import SerializerMixin
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-from datetime import datetime
-from flask_login import LoginManager, UserMixin
-# from werkzeug.security import generate_password_hash, check_password_hash
-from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
+from config import bcrypt, db
 
-metadata = MetaData(
-    naming_convention={
-        "fk": "fk%(table_name)s%(column_0_name)s%(referred_table_name)s",
-    }
-)
 
-db = SQLAlchemy(metadata=metadata)
-bcrypt = Bcrypt()
-
-class User(db.Model, SerializerMixin, UserMixin):
+class User(db.Model, SerializerMixin):
     __tablename__='users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +22,9 @@ class User(db.Model, SerializerMixin, UserMixin):
         self.password_hash = pass_hash.decode('utf-8')
 
     def authenticate(self, password):
-        return bcrypt.check_password_hash(self.password_hash, password.encode('utf-8'))
+        if password is not None:
+            return bcrypt.check_password_hash(self.password_hash, password.encode('utf-8'))
+        return False
 
     #add relationship
     subscriptions = db.relationship('Subscription', back_populates='user')

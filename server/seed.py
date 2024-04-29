@@ -20,17 +20,17 @@ with app.app_context():
         User(
             username='yeth2seth',
             email='yeth2seth@gmail.com',
-            password_hash='abc123'
+            password='abc123'
         ),
         User(
             username='mikeymouse',
             email='mikeymouse@gmail.com',
-            password_hash='abc123'
+            password='abc123'
         ),
         User(
             username='slambam',
             email='slambam@gmail.com',
-            password_hash='abc123'
+            password='abc123'
         ),
 
         # User(
