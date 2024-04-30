@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.id) {
+        if (data.ok) {
           setUser(data);
         } else {
           setUser(null);
@@ -47,3 +47,4 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+

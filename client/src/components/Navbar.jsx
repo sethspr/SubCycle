@@ -1,10 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import Logout from '../components/Logout'
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout();
+    navigate('/')
+  }
 
   return (
     <div className='navbar'>
@@ -13,9 +19,10 @@ const Navbar = () => {
           <li><Link to='/subscriptions'>Subscriptions</Link></li>
           <li><Link to='/about'>About</Link></li>
           {user ? (
-            <li><Link to='/logout'>Logout</Link></li>
-          ) : (
+            <button onClick={handleLogout} className='logout-button'>Logout</button>,
             <li><Link to='/login'>Login</Link></li>
+          ) : (
+            <li><Link to='/logout'>Logout</Link></li>
           )}
         </ul>
       </nav>

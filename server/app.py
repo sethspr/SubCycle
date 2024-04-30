@@ -166,7 +166,7 @@ def check_session():
     if user:
         return user.to_dict(), 200
     else:
-        return {}, 401
+        return {'message': '401: Not Authorized'}, 401
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
