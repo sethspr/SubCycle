@@ -1,9 +1,10 @@
-// Login.jsx
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 
 function Login() {
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const { login, loginMessage } = useAuth(); // Get loginMessage from useAuth hook
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -13,31 +14,15 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send login request to the backend
-    fetch("http://127.0.0.1:5555/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Redirect to home page or any other protected route
-          navigate("/");
-        } else {
-          console.error("Login failed");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+
+    login(formData, navigate); // No need to pass setLoginMessage here
   };
 
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit} method="POST" action='/login'>
+      {loginMessage && <p>{loginMessage}</p>}
+      <form onSubmit={handleSubmit} method="POST" action="/login">
         <div>
           <label>Username:</label>
           <input
