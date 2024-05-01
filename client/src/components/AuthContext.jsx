@@ -8,6 +8,33 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loginMessage, setLoginMessage] = useState(null);
+
+  const login = (formData, navigate) => {
+    // Remove setLoginMessage from parameters
+    fetch("http://localhost:5555/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    //   credentials: "include",
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setLoginMessage("Login successful!");
+          setTimeout(() => {
+            navigate("/"); // Redirect to home page or any other protected route
+          }, 2000); // Wait for 2 seconds before navigating to '/'
+        } else {
+          setLoginMessage("Login failed. Please try again");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoginMessage("Login failed. Please try again");
+      });
+  };
 
   const logout = () => {
     fetch("http://127.0.0.1:5555/logout", {
@@ -42,9 +69,10 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, logout }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, loginMessage, setLoginMessage }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
-

@@ -18,9 +18,9 @@ const Navbar = () => {
         <ul>
           <li><Link to='/subscriptions'>Subscriptions</Link></li>
           <li><Link to='/about'>About</Link></li>
+          <li><Link to='/login'>Login</Link></li>
           {user ? (
-            <button onClick={handleLogout} className='logout-button'>Logout</button>,
-            <li><Link to='/login'>Login</Link></li>
+            <button onClick={handleLogout} className='logout-button'>Logout</button>
           ) : (
             <li><Link to='/logout'>Logout</Link></li>
           )}
