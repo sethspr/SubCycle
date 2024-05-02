@@ -32,6 +32,12 @@ export async function get_services() {
   return await call_api(url, "GET");
 }
 
+export async function get_transactions() {
+  const url = `${domain}/transactions`;
+
+  return await call_api(url, "GET");
+}
+
 async function call_api(url, method, extra_headers, extras) {
   const opts = {
     headers: {
@@ -39,7 +45,7 @@ async function call_api(url, method, extra_headers, extras) {
       ...extra_headers,
     },
     method,
-    credentials,
+    credentials: "include",
     ...extras,
   };
 

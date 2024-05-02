@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from './AuthContext';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
+import { get_subscriptions } from "../services/api.service";
+import UserServices from "./UserServices";
+import UserTransactions from "./UserTransactions";
 
 function UserProfile() {
-    const { user } = useAuth();
-    const [userProfile, setUserProfile] = useState([]);
+  const { user } = useAuth();
+  const [userProfile, setUserProfile] = useState([]);
 
-    const fetchUserProfile = async () => {
-        try {
-            // is user.id available in the user object
-            const response = await fetch('http://127.0.0.1:5555/subscriptions');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            setUserProfile(data);
-        } catch (error) {
-            console.error('Failed to fetch user profile:', error);
-        }
-    };
+  const getSubscription = async () => {
+    const response = await get_subscriptions();
+    setUserProfile(response.data);
+  };
 
-    useEffect(() => {
-        fetchUserProfile();
-    }, [user]); // Fetch user profile whenever user data changes
+  useEffect(() => {
+    getSubscription();
+  }, [user]);
 
-    return (
-        <div>
-            <h1>User Profile</h1>
-            {userProfile.map(profile => (
-                <div key={profile.id}>
-                    <h2>{profile.user.username}</h2>
-                    <p>{profile.service.company_name}</p>
-                    <p>${profile.service.amount}</p>
-                    <p>Due on day {profile.due_date} of the month</p>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+    <div className="user-profile">
+      <h1>User Profile</h1>
+      <UserServices userProfile={userProfile} setUserProfile={setUserProfile} />
+      <UserTransactions
+        userProfile={userProfile}
+        setUserProfile={setUserProfile}
+      />
+    </div>
+  );
 }
 
 export default UserProfile;
