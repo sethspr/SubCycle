@@ -39,7 +39,7 @@ async function call_api(url, method, extra_headers, extras) {
       ...extra_headers,
     },
     method,
-    credentials,
+    credentials: "include",
     ...extras,
   };
 
