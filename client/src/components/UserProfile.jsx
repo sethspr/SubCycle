@@ -7,7 +7,7 @@ function UserProfile() {
 
     const fetchUserProfile = async () => {
         try {
-            // Assuming user.id is available in the user object
+            // is user.id available in the user object
             const response = await fetch('http://127.0.0.1:5555/subscriptions');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

@@ -12,7 +12,6 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("secret_key")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI", f"sqlite:///app.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-cors = CORS(app, supports_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.json.compact = False
 
@@ -29,4 +28,4 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-CORS(app)
+CORS(app, supports_credentials=True)
