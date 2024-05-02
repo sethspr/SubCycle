@@ -33,7 +33,6 @@ class User(db.Model, SerializerMixin):
     #add serialization rules
     serialize_rules = ['-subscriptions', '-escrow_accounts', '-password']
 
-
 class Subscription(db.Model, SerializerMixin):
     __tablename__='subscriptions'
 
