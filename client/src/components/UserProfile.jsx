@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { get_subscriptions } from "../services/api.service";
 import UserServices from "./UserServices";
-import UserTransactions from "./UserTransactions";
 
 function UserProfile() {
   const { user } = useAuth();
@@ -21,10 +20,6 @@ function UserProfile() {
     <div className="user-profile">
       <h1>User Profile</h1>
       <UserServices userProfile={userProfile} setUserProfile={setUserProfile} />
-      <UserTransactions
-        userProfile={userProfile}
-        setUserProfile={setUserProfile}
-      />
     </div>
   );
 }
