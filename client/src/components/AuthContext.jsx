@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
       : "Login failed. Please try again";
 
     setLoginMessage(message);
-    if (response.ok) setTimeout(() => navigate("/"), 2000);
+    if (response.ok) setTimeout(() => navigate("/userprofile"), 1500);
   };
 
   const logout = async () => {
