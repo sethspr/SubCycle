@@ -6,6 +6,7 @@ import About from '../components/About';
 import Login from '../components/Login';
 import Logout from '../components/Logout';
 import UserProfile from '../components/UserProfile';
+import Signup from '../components/Signup';
 
 const AppRoutes = () => (
   <Routes>
@@ -15,6 +16,7 @@ const AppRoutes = () => (
     <Route path='/userprofile' element={<UserProfile />} />
     <Route path='/login' element={<Login />} />
     <Route path='/logout' element={<Logout />} />
+    <Route path='/signup' element={<Signup />} />
   </Routes>
 );
 
