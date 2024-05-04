@@ -18,7 +18,7 @@ function UserProfile() {
 
   return (
     <div className="user-profile">
-      <h1>User Profile</h1>
+      <h1>Hello, {user.username}!</h1>
       <UserServices userProfile={userProfile} setUserProfile={setUserProfile} />
     </div>
   );
