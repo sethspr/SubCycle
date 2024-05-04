@@ -1,7 +1,7 @@
-from flask import Flask, request, session
+from flask import Flask, request, session, jsonify
 from models import db, User, Subscription, EscrowAccount, Transaction, Service
 from config import app, db
-from flask_login import LoginManager, login_manager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_manager
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -83,15 +83,41 @@ def sub_by_id(id):
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
-@app.route('/escrows', methods=['GET'])
+@app.route('/escrows', methods=['GET', 'POST'])
 def get_all_accounts():
-    all_accounts = EscrowAccount.query.all()
+    if request.method == 'GET':
+        all_accounts = EscrowAccount.query.all()
 
-    account_dict = []
-    for account in all_accounts:
-        account_dict.append(account.to_dict())
-    return account_dict, 200
+        account_dict = []
+        for account in all_accounts:
+            account_dict.append(account.to_dict())
+        return account_dict, 200
+    
+    elif request.method == 'POST':
+            data = request.get_json()
+            user_id = data.get('user_id')
+            balance = data.get('balance')
 
+            if not user_id or balance is None:
+                return jsonify({'Error': 'Missing user ID or balance'}), 400
+
+            account = EscrowAccount.query.filter_by(user_id=user_id).first()
+
+            if account:
+                account.balance += balance 
+                db.session.commit()
+                return jsonify(account.to_dict()), 200
+            else:
+                # Create a new account if not exists
+                try:
+                    new_account = EscrowAccount(user_id=user_id, balance=balance)
+                    db.session.add(new_account)
+                    db.session.commit()
+                    return jsonify(new_account.to_dict()), 201
+                except Exception as e:
+                    db.session.rollback()
+                    return jsonify({'Error': str(e)}), 500
+    
 @app.route('/escrows/<int:id>', methods=['GET'])
 def account_by_id(id):
     account_id = EscrowAccount.query.filter(EscrowAccount.id == id).first()
