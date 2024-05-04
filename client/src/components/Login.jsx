@@ -18,6 +18,11 @@ function Login() {
     login(formData, navigate); // No need to pass setLoginMessage here
   };
 
+  const handleSignUpclick = () => {
+    navigate('/signup');
+  };
+
+
   return (
     <div>
       <h2>Login</h2>
@@ -43,6 +48,7 @@ function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
+        <button type="button" onClick={handleSignUpclick}>Sign Up Now</button>
     </div>
   );
 }
