@@ -29,9 +29,10 @@ class User(db.Model, SerializerMixin):
     #add relationship
     subscriptions = db.relationship('Subscription', back_populates='user')
     escrow_accounts = db.relationship('EscrowAccount', back_populates='user')
+    transactions = db.relationship('Transaction', back_populates='user')
     
     #add serialization rules
-    serialize_rules = ['-subscriptions', '-escrow_accounts', '-password']
+    serialize_rules = ['-subscriptions', '-escrow_accounts', '-password', '-transactions']
 
 class Subscription(db.Model, SerializerMixin):
     __tablename__='subscriptions'
@@ -70,11 +71,13 @@ class Transaction(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     escrow_id = db.Column(db.Integer, db.ForeignKey('escrow_accounts.id'))
     subscription_id = db.Column(db.Integer, db.ForeignKey('subscriptions.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     amount = db.Column(db.Float)
     date = db.Column(db.DateTime, server_default = db.func.now())
 
     escrow_account = db.relationship('EscrowAccount', back_populates='transactions')
     subscriptions = db.relationship('Subscription', back_populates='transactions')
+    user = db.relationship('User', back_populates='transactions')
 
     serialize_rules = ['-escrow_account', '-subscriptions']
 
