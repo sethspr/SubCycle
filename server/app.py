@@ -31,7 +31,7 @@ def all_users():
         json = request.get_json()
         is_duplicate = User.query.filter_by(username=json['username']).first()
         if is_duplicate:
-            return {'Error': f'{is_duplicate} is already registered, please choose another username'}
+            return {'Error': f'{is_duplicate} is already registered, please choose another username'}, 409
         
         new_user = User(
             username=json.get('username'), 
