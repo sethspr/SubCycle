@@ -90,12 +90,6 @@ with app.app_context():
 
         ), 
         Subscription(
-            due_date='2',
-            user_id='1',
-            service_id="4"
-
-        ), 
-        Subscription(
             due_date='11',
             user_id='2',
             service_id="5"
@@ -105,12 +99,6 @@ with app.app_context():
             due_date='24',
             user_id='3',
             service_id="6"
-
-        ), 
-        Subscription(
-            due_date='27',
-            user_id='1',
-            service_id="7"
 
         ), 
     ]
@@ -208,54 +196,63 @@ with app.app_context():
             escrow_id=escrow_accounts[0].id,
             subscription_id=subscriptions[0].id,
             amount=services[0].amount,
+            user_id=users[0].id
             # date=datetime.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[0].id,
             subscription_id=subscriptions[1].id,
             amount=services[1].amount,
+            user_id=users[0].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[0].id,
             subscription_id=subscriptions[2].id,
             amount=services[2].amount,
+            user_id=users[0].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[1].id,
             subscription_id=subscriptions[3].id,
             amount=services[3].amount,
+            user_id=users[1].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[1].id,
             subscription_id=subscriptions[0].id,
             amount=services[0].amount,
+            user_id=users[1].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[1].id,
             subscription_id=subscriptions[5].id,
             amount=services[5].amount,
+            user_id=users[1].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[2].id,
             subscription_id=subscriptions[6].id,
             amount=services[6].amount,
+            user_id=users[2].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[2].id,
             subscription_id=subscriptions[4].id,
             amount=services[4].amount,
+            user_id=users[2].id
             # date=datetime.db.func.now()
         ),
         Transaction(
             escrow_id=escrow_accounts[2].id,
             subscription_id=subscriptions[3].id,
             amount=services[3].amount,
+            user_id=users[2].id
             # date=datetime.db.func.now()
         ),
         
