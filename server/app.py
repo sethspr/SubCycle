@@ -118,14 +118,31 @@ def get_all_accounts():
                     db.session.rollback()
                     return jsonify({'Error': str(e)}), 500
     
-@app.route('/escrows/<int:id>', methods=['GET'])
+@app.route('/escrows/<int:id>', methods=['GET', 'PATCH'])
 def account_by_id(id):
-    account_id = EscrowAccount.query.filter(EscrowAccount.id == id).first()
+    if request.method == 'GET':
+        account_id = EscrowAccount.query.filter_by(id=id).first()
 
-    if account_id:
-        return account_id.to_dict(), 200
-    else:
-        return {'Error': 'Account not found'}, 404
+        if account_id:
+            return account_id.to_dict(), 200
+        else:
+            return {'Error': 'Account not found'}, 404
+        
+    elif request.method == 'PATCH':
+        data = request.get_json()
+        new_balance = data.get('balance')
+
+        if new_balance is None:
+            return jsonify({'Error': 'Missing balance parameter'}), 400
+
+        account = EscrowAccount.query.filter_by(id=id).first()
+
+        if account:
+            account.balance += float(new_balance)
+            db.session.commit()
+            return jsonify(account.to_dict()), 200
+        else:
+            return jsonify({'Error': 'Account not found'}), 404
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
