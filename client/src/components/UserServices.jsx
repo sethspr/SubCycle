@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { get_transactions } from "../services/api.service";
 
-function UserServices({ userProfile, setUserProfile }) {
+function UserServices({ userProfile }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userSubs, setUserSubs] = useState([]);
