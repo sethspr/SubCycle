@@ -18,14 +18,19 @@ export function AuthProvider({ children }) {
       : "Login failed. Please try again";
 
     setLoginMessage(message);
-    if (response.ok) setTimeout(() => navigate("/"), 2000);
+    if (response.ok) {
+      setTimeout(() => {
+        navigate("/userprofile"), 1500;
+        window.location.reload();
+      });
+    }
   };
 
   const logout = async () => {
     const response = await sign_out();
     if (response.ok) {
       setUser(null);
-    //   TODO: delete cookie here...
+      //   TODO: delete cookie here...
     }
   };
 
