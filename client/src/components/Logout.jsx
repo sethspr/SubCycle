@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/AuthContext'; // adjust the path as needed
+import { useAuth } from '../components/AuthContext';
 
 function Logout() {
   const navigate = useNavigate();
