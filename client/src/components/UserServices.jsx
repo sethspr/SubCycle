@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { get_transactions } from "../services/api.service";
 
-function UserServices({ userProfile, setUserProfile }) {
+function UserServices({ userProfile }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userSubs, setUserSubs] = useState([]);
@@ -27,15 +27,21 @@ function UserServices({ userProfile, setUserProfile }) {
     fetchData();
   }, [user, userProfile]);
 
-  const handleViewTransactions = async (id) => {
+  const handleViewTransactions = async (user_sub) => {
     try {
-      if (selectedServiceId === id) {
+      if (selectedServiceId === user_sub.service.id) {
         setSelectedServiceId(null);
         setUserTransactions([]);
       } else {
-        setSelectedServiceId(id);
-        const response = await get_transactions(id);
-        setUserTransactions(response.data);
+        setSelectedServiceId(user_sub.service.id);
+        const response = await get_transactions();
+        const filteredTransactions = response.data.filter(
+          (user_transaction) => 
+            user_transaction.user_id === user.id &&
+            user_transaction.subscription_id === user_sub.id
+        );
+        // console.log(filteredTransactions)
+        setUserTransactions(filteredTransactions);
       }
     } catch (error) {
       console.error("Error fetching transactions:", error);
@@ -53,9 +59,7 @@ function UserServices({ userProfile, setUserProfile }) {
           <h2>{subscription.service.company_name}</h2>
           <p>Due Date: {subscription.due_date}</p>
           <p>Amount: {subscription.service.amount}</p>
-          <button
-            onClick={() => handleViewTransactions(subscription.service.id)}
-          >
+          <button onClick={() => handleViewTransactions(subscription)}>
             {selectedServiceId === subscription.service.id
               ? "Hide Transactions"
               : "View Transactions"}

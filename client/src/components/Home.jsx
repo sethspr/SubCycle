@@ -7,9 +7,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="content">
-        <h1>
-          One Monthly Payment for Every Streaming Service
-        </h1>
+        <h1>One Monthly Payment for Every Streaming Service</h1>
         <p>
           SubCycle is here to simplify your life by revolutionizing the way you
           manage your online streaming subscriptions. Say goodbye to missed
@@ -61,7 +59,7 @@ const Home = () => {
           the benefits of effortless subscription management and budgeting.
         </p>
         <div className="button-container">
-          <Link to="/login">
+          <Link to="/signup">
             <button className="primary">Sign Up Now</button>
           </Link>
           <Link to="/subscriptions">

@@ -38,6 +38,14 @@ export async function get_transactions() {
   return await call_api(url, "GET");
 }
 
+export async function post_new_user(formData) {
+  const url = `${domain}/users`;
+  const _headers = { "Content-Type": "application/json" };
+  const body = { body: JSON.stringify(formData) };
+
+  return await call_api(url, "POST", _headers, body);
+}
+
 async function call_api(url, method, extra_headers, extras) {
   const opts = {
     headers: {

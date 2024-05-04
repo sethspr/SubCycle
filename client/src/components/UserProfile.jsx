@@ -18,8 +18,9 @@ function UserProfile() {
 
   return (
     <div className="user-profile">
-      <h1>Hello, {user.username}!</h1>
-      <UserServices userProfile={userProfile} setUserProfile={setUserProfile} />
+      <h1>Welcome back!</h1> 
+      {/* need a conditional here so user.username is not Null when user is not logged in */}
+      <UserServices userProfile={userProfile} />
     </div>
   );
 }
