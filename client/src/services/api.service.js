@@ -46,6 +46,18 @@ export async function post_new_user(formData) {
   return await call_api(url, "POST", _headers, body);
 }
 
+export async function get_escrow_account(userId) {
+  const url = `${domain}/escrows/${userId}`;
+  return await call_api(url, "GET");
+}
+
+export async function patch_escrow_account(userId, amount) {
+  const url = `${domain}/escrows/${userId}`;
+  const _headers = { "Content-Type": "application/json" };
+  const body = { balance: amount };
+  return await call_api(url, "PATCH", _headers, { body: JSON.stringify(body) });
+}
+
 async function call_api(url, method, extra_headers, extras) {
   const opts = {
     headers: {
