@@ -6,7 +6,7 @@ function UserServices({ userProfile, setUserProfile }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userSubs, setUserSubs] = useState([]);
-  const [serviceId, setServiceId] = useState(null);
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [userTransactions, setUserTransactions] = useState([]);
 
   useEffect(() => {
@@ -17,25 +17,24 @@ function UserServices({ userProfile, setUserProfile }) {
             (subscription) => subscription.user.username === user.username
           );
           setUserSubs(filteredSubscriptions);
-          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching user subscriptions:", error);
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchData();
   }, [user, userProfile]);
 
-  const handleViewTransactions = async (serviceId) => {
+  const handleViewTransactions = async (id) => {
     try {
-      if (serviceId === serviceId) {
-        setServiceId(null);
+      if (selectedServiceId === id) {
+        setSelectedServiceId(null);
         setUserTransactions([]);
       } else {
-        setServiceId(serviceId);
-        const response = await get_transactions(serviceId);
+        setSelectedServiceId(id);
+        const response = await get_transactions(id);
         setUserTransactions(response.data);
       }
     } catch (error) {
@@ -49,7 +48,6 @@ function UserServices({ userProfile, setUserProfile }) {
 
   return (
     <div>
-      <h1>User Services Component</h1>
       {userSubs.map((subscription) => (
         <div key={subscription.id}>
           <h2>{subscription.service.company_name}</h2>
@@ -58,11 +56,11 @@ function UserServices({ userProfile, setUserProfile }) {
           <button
             onClick={() => handleViewTransactions(subscription.service.id)}
           >
-            {serviceId === subscription.service.id
+            {selectedServiceId === subscription.service.id
               ? "Hide Transactions"
               : "View Transactions"}
           </button>
-          {serviceId === subscription.service.id && (
+          {selectedServiceId === subscription.service.id && (
             <div>
               <h3>Historical Transactions</h3>
               {userTransactions.map((transaction) => (
