@@ -3,6 +3,47 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { post_new_user } from "../services/api.service";
 
+function validate_password(password, confirm) {
+  if (!password || !password.trim())
+    return { isValid: false, reason: "Password cannot be blank!" };
+  if (!confirm || !confirm.trim())
+    return { isValid: false, reason: "Password confirmation cannot be blank!" };
+
+  return password === confirm
+    ? { isValid: true }
+    : { isValid: false, reason: "Passwords must match!" };
+}
+
+function validate_username(username) {
+  return !!username.trim()
+    ? { isValid: true }
+    : { isValid: false, reason: "Username cannot be empty!" };
+}
+
+function validate_email(email) {
+  if (!email.trim()) {
+    return { isValid: false, reason: "Email cannot be empty!" };
+  }
+
+  const email_test = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return email_test
+    ? { isValid: true }
+    : { isValid: false, reason: "Invalid email format!" };
+}
+
+function validate_userForm(username, email, password, password_confirm) {
+  const result_username = validate_username(username);
+  if (!result_username.isValid) return result_username;
+
+  const result_email = validate_email(email);
+  if (!result_email.isValid) return result_email;
+
+  const result_password = validate_password(password, password_confirm);
+  if (!result_password.isValid) return result_password;
+
+  return { isValid: true };
+}
+
 function Signup() {
   const { setUser } = useAuth();
   const [formData, setFormData] = useState({
@@ -19,52 +60,38 @@ function Signup() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const postNewUser = async (newUser) => {
-    try {
-      const response = await post_new_user(newUser);
-      setUser(response.data);
-      navigate("/login");
-    } catch (error) {
-      console.error("Error signing up:", error);
-      setError("Error signing up. Please try again.");
+  const submitUser = async ($event) => {
+    $event.preventDefault();
+
+    const validation_result = validate_userForm(
+      formData.username,
+      formData.email,
+      formData.password,
+      passwordConfirm
+    );
+
+    // if form isnt valid setError and then return
+    if (!validation_result.isValid) {
+      setError(validation_result.reason);
+      return;
     }
+
+    const new_user = {
+      username: formData.username,
+      email: formData.email,
+      password_hash: formData.password,
+    };
+
+    await post_new_user(new_user)
+      .then((response) => {
+        setUser(response.data);
+        navigate("/login");
+      })
+      .catch((e) => {
+        console.error("Error signing up:", e);
+        setError("Error signing up. Please try again.");
+      });
   };
-
-  const submitUser = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      const newUser = {
-        username: formData.username,
-        email: formData.email,
-        password_hash: formData.password,
-      };
-      postNewUser(newUser);
-    }
-  };
-
-  // useEffect(() => {
-  //   postNewUser();
-  // }, [setUser]);
-
-  function validateForm() {
-    if (formData.password !== passwordConfirm) {
-      setError("Passwords do not match.");
-      return false;
-    }
-    if (!formData.username.trim()) {
-      setError("Username cannot be empty.");
-      return false;
-    }
-    if (!formData.email.trim() || !isValidEmail(formData.email)) {
-      setError("Invalid email format.");
-      return false;
-    }
-    return true;
-  }
-
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
 
   return (
     <div className="form-container ">
