@@ -35,7 +35,7 @@ def all_users():
         
         new_user = User(
             username=json.get('username'), 
-            password=json.get('password'), 
+            password=json.get('password_hash'), 
             email=json.get('email')
         )
         
