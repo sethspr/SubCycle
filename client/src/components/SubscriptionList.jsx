@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { add_sub_to_profile } from "../services/api.service";
 
 function SubscriptionList() {
   // State to hold and set the list of subscriptions/services
   const [subscriptions, setSubscriptions] = useState([]);
+  
 
   // Function to fetch subscriptions from the backend app.py
   const fetchSubscriptions = async () => {
@@ -23,14 +25,29 @@ function SubscriptionList() {
     fetchSubscriptions();
   }, []);
 
+  const handleAddSubscription = async (serviceId) => {
+    try {
+      await add_sub_to_profile(serviceId); 
+      const updatedSubscriptions = await add_sub_to_profile(); 
+      setSubscriptions(updatedSubscriptions); 
+      alert("Subscription added successfully!");
+    } catch (error) {
+      console.error("Failed to add subscription:", error);
+      alert("Failed to add subscription. Please try again later.");
+    }
+  };
+
   return (
     <div>
       <h1>Supported Subscriptions</h1>
-      {subscriptions.map(service => (
+      {subscriptions.map((service) => (
         <div key={service.id}>
           <h2>{service.company_name}</h2>
           <p>{service.description}</p>
           <p>Monthly Cost: {service.amount}</p>
+          <button onClick={() => handleAddSubscription(service.id)}>
+            Add Subscription
+          </button>
         </div>
       ))}
     </div>
