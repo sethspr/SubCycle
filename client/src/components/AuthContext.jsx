@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { check_session, sign_in, sign_out } from "../services/api.service";
+import {
+  check_session,
+  sign_in,
+  sign_out,
+  delete_cookie,
+} from "../services/api.service";
 
 const AuthContext = createContext();
 
@@ -19,10 +24,11 @@ export function AuthProvider({ children }) {
 
     setLoginMessage(message);
     if (response.ok) {
+      setUser(response.data);
+
       setTimeout(() => {
-        navigate("/userprofile"), 1500;
-        window.location.reload();
-      });
+        navigate("/userprofile");
+      }, 1500);
     }
   };
 
@@ -30,16 +36,16 @@ export function AuthProvider({ children }) {
     const response = await sign_out();
     if (response.ok) {
       setUser(null);
-      //   TODO: delete cookie here...
+      delete_cookie("session");
     }
   };
 
-  const checkSession = async () => {
-    const response = await check_session();
-    setUser(response.data);
-  };
-
   useEffect(() => {
+    const checkSession = async () => {
+      const response = await check_session();
+      setUser(response.data);
+    };
+
     checkSession();
   }, []);
 

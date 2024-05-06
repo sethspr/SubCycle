@@ -13,12 +13,9 @@ function EscrowAccount() {
 
   useEffect(() => {
     const fetchAccount = async () => {
-      try {
-        const response = await get_escrow_account(user.id); // Assuming user.id exists
-        setAccount(response.data);
-      } catch (error) {
-        console.error("Error fetching escrow account:", error);
-      }
+      await get_escrow_account(user.id)
+        .then((response) => setAccount(response.data))
+        .catch((e) => console.error("Error fetching escrow account!", e));
     };
 
     fetchAccount();
