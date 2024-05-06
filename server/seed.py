@@ -1,4 +1,4 @@
-import random
+from random import choice, random
 from app import app
 from models import db, User, Subscription, EscrowAccount, Transaction, Service
 from datetime import datetime
@@ -12,6 +12,7 @@ with app.app_context():
     Subscription.query.delete()
     EscrowAccount.query.delete()
     Transaction.query.delete()
+    Service.query.delete()
 
     #user instances
     print('adding users...')
@@ -20,17 +21,20 @@ with app.app_context():
         User(
             username='yeth2seth',
             email='yeth2seth@gmail.com',
-            password='abc123'
+            password='abc123',
+            escrow_id=1
         ),
         User(
             username='mikeymouse',
             email='mikeymouse@gmail.com',
-            password='abc123'
+            password='abc123',
+            escrow_id=2
         ),
         User(
             username='slambam',
             email='slambam@gmail.com',
-            password='abc123'
+            password='abc123',
+            escrow_id=3
         ),
 
         # User(
@@ -41,71 +45,6 @@ with app.app_context():
     ]
 
     db.session.add_all(users)
-    db.session.commit()
-
-    #subscription instances
-    print('adding subscriptions...')
-
-    subscriptions = [
-        Subscription(
-            due_date='17',
-            user_id="1",
-            service_id="1"
-        ),
-        Subscription(
-            due_date='4',
-            user_id="2",
-            service_id="2"
-
-        ),
-        Subscription(
-            due_date='8',
-            user_id="3",
-            service_id="3"
-
-        ),
-        Subscription(
-
-            due_date='23',
-            user_id="1",
-            service_id="4"
-
-        ),
-        Subscription(
-            due_date='28',
-            user_id="2",
-            service_id="5"
-
-        ),
-        Subscription(
-            due_date='12',
-            user_id="3",
-            service_id="6"
-
-        ),
-        Subscription(
-            due_date='19',
-            user_id="1",
-            service_id="7"
-
-        ), 
-        Subscription(
-            due_date='11',
-            user_id='2',
-            service_id="5"
-
-        ), 
-        Subscription(
-            due_date='24',
-            user_id='3',
-            service_id="6"
-
-        ), 
-    ]
-
-    # for sub_data in subscriptions:
-    #     db.session.add(sub_data)
-    db.session.add_all(subscriptions)
     db.session.commit()
 
     #escrow instances
@@ -189,78 +128,146 @@ with app.app_context():
     db.session.add_all(services)
     db.session.commit()
 
+    #subscription instances
+    print('adding subscriptions...')
+
+    subscriptions = [
+        Subscription(
+            due_date='17',
+            user_id=users[0].id,
+            service_id=services[0].id
+        ),
+        Subscription(
+            due_date='4',
+            user_id=users[0].id,
+            service_id=services[1].id
+
+        ),
+        Subscription(
+            due_date='8',
+            user_id=users[0].id,
+            service_id=services[2].id
+
+        ),
+        Subscription(
+
+            due_date='23',
+            user_id=users[0].id,
+            service_id=services[3].id
+
+        ),
+        Subscription(
+            due_date='28',
+            user_id=users[1].id,
+            service_id=services[4].id
+
+        ),
+        Subscription(
+            due_date='12',
+            user_id=users[1].id,
+            service_id=services[5].id
+
+        ),
+        Subscription(
+            due_date='19',
+            user_id=users[1].id,
+            service_id=services[6].id
+
+        ), 
+        Subscription(
+            due_date='11',
+            user_id=users[2].id,
+            service_id=services[0].id
+
+        ), 
+        Subscription(
+            due_date='24',
+            user_id=users[2].id,
+            service_id=services[1].id
+
+        ), 
+    ]
+
+    # for sub_data in subscriptions:
+    #     db.session.add(sub_data)
+    db.session.add_all(subscriptions)
+    db.session.commit()
+
+
+    
+    # transaction instances
     print('adding transactions...')
 
     transactions = [
         Transaction(
-            escrow_id=escrow_accounts[0].id,
             subscription_id=subscriptions[0].id,
-            amount=services[0].amount,
-            user_id=users[0].id
+            transaction_amount=services[0].amount,
+            user_id=users[0].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[0].id,
             subscription_id=subscriptions[1].id,
-            amount=services[1].amount,
-            user_id=users[0].id
+            transaction_amount=services[1].amount,
+            user_id=users[0].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[0].id,
             subscription_id=subscriptions[2].id,
-            amount=services[2].amount,
-            user_id=users[0].id
+            transaction_amount=services[2].amount,
+            user_id=users[0].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[1].id,
             subscription_id=subscriptions[3].id,
-            amount=services[3].amount,
-            user_id=users[1].id
+            transaction_amount=services[3].amount,
+            user_id=users[1].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[1].id,
             subscription_id=subscriptions[0].id,
-            amount=services[0].amount,
-            user_id=users[1].id
+            transaction_amount=services[0].amount,
+            user_id=users[1].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[1].id,
             subscription_id=subscriptions[5].id,
-            amount=services[5].amount,
-            user_id=users[1].id
+            transaction_amount=services[5].amount,
+            user_id=users[1].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[2].id,
             subscription_id=subscriptions[6].id,
-            amount=services[6].amount,
-            user_id=users[2].id
+            transaction_amount=services[6].amount,
+            user_id=users[2].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[2].id,
             subscription_id=subscriptions[4].id,
-            amount=services[4].amount,
-            user_id=users[2].id
+            transaction_amount=services[4].amount,
+            user_id=users[2].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         Transaction(
-            escrow_id=escrow_accounts[2].id,
             subscription_id=subscriptions[3].id,
-            amount=services[3].amount,
-            user_id=users[2].id
+            transaction_amount=services[3].amount,
+            user_id=users[2].id,
+            transaction_type=choice(['credit', 'debit'])
             # date=datetime.db.func.now()
         ),
         
         
         # Transaction(
-        #     escrow_id=escrow_accounts[0].id,
+        # 
         #     subscription_id=subscriptions[0].id,
-        #     amount=services[0].amount,
+        #     transaction_amount=services[0].amount,
         #     date=datetime.db.func.now()
         # ),
 
