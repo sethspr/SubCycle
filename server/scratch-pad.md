@@ -137,10 +137,10 @@ user_id: number [FK]
 # Subscription object
 
 Subscription {
-id: number [PK],
-user_id: number [FK],
-service_id: number [FK],
-due_date: date
+id: number [PK], (current setup)
+user_id: number [FK], (current setup)
+service_id: number [FK], (current setup)
+due_date: date (current setup)
 }
 
 ## Accessibility
