@@ -1,7 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { post_new_user } from "../services/api.service";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 function validate_password(password, confirm) {
   if (!password || !password.trim())
@@ -94,49 +104,95 @@ function Signup() {
   };
 
   return (
-    <div className="form-container ">
-      <h2>Join SubCycle Today!</h2>
-      <form className="form" onSubmit={submitUser}>
-        <input
-          type="text"
-          value={formData.username}
-          onChange={handleChange}
-          className="title-text"
-          name="username"
-          placeholder="Choose a Username"
-        />
-
-        <input
-          type="text"
-          value={formData.email}
-          onChange={handleChange}
-          className="title-text"
-          name="email"
-          placeholder="Your email address"
-        />
-
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="title-text"
-          placeholder="Password"
-        />
-
-        <input
-          type="password"
-          className="title-text"
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
-          name="passwordConfirm"
-          placeholder="Confirm Password"
-        />
-
-        <input type="submit" className="submit-button" />
-      </form>
-      {error && <p className="error-message">Error: {error}</p>}
-    </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box component="form" onSubmit={submitUser} noValidate sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="username"
+                name="username"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                autoFocus
+                value={formData.username}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="email"
+                name="email"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="new-password"
+                name="password"
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="new-password"
+                name="passwordConfirm"
+                required
+                fullWidth
+                id="passwordConfirm"
+                label="Confirm Password"
+                type="password"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Link href="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+        {error && <p className="error-message">Error: {error}</p>}
+      </Box>
+    </Container>
   );
 }
 
