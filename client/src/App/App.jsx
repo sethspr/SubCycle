@@ -9,9 +9,6 @@ const App = () => {
     <Router>
       <div>
         <div className='top-header'>
-          <Link to='/' className='logo-link'>
-            <h1>SubCycle</h1>
-          </Link>
           <Navbar />
         </div>
         <AppRoutes />
