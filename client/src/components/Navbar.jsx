@@ -1,6 +1,6 @@
 import React from "react";
 import Logout from "./Logout";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../components/AuthContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,85 +8,107 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
+import logo from "../Assets/SubCycle-logo-white.png";
 
 const Navbar = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
-  const [profileAnchor, setProfileAnchor] = React.useState(null);
-  const [menuAnchor, setMenuAnchor] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const toggleProfileMenu = (event) => {
-    setProfileAnchor(event.currentTarget);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setProfileAnchor(null);
+    setAnchorEl(null);
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{ flexGrow: 1 }}>
-          <Typography variant="h5" component="div">
-            SubCycle
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ height: 100, marginRight: 10 }}
+            />
           </Typography>
-
-          <Button variant="text" color="inherit" sx={{ marginLeft: "1rem" }}>
-            <Link to="/">About</Link>
-          </Button>
-
-          <Button variant="text" color="inherit" sx={{ marginLeft: "1rem" }}>
-            <Link to="/subscriptions">Subscriptions</Link>
-          </Button>
-
-          <div className="flex-auto justify-end">
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Button component={Link} to="/" color="inherit">
+              Home
+            </Button>
+            <Button component={Link} to="/subscriptions" color="inherit">
+              Subscriptions
+            </Button>
+            <Button component={Link} to="/about" color="inherit">
+              About
+            </Button>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
+              edge="start"
               color="inherit"
-              onClick={toggleProfileMenu}
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
-          </div>
-
-          <Menu
-            id="profile-menu"
-            anchorEl={profileAnchor}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(profileAnchor)}
-            onClose={handleClose}
-          >
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem component={Link} to="/" onClick={handleClose}>
+                Home
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/subscriptions"
+                onClick={handleClose}
+              >
+                Subscriptions
+              </MenuItem>
+              <MenuItem component={Link} to="/about" onClick={handleClose}>
+                About
+              </MenuItem>
+            </Menu>
+          </Box>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {user && "email" in user ? (
               <>
-                <MenuItem onClick={handleClose}>
-                  <Link to="/userprofile">User Profile</Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Link to="/">Logout</Link>
-                </MenuItem>
+                <Button component={Link} to="/userprofile" color="inherit">
+                  User Profile
+                </Button>
+                <Logout />
               </>
             ) : (
-              <MenuItem onClick={handleClose}>
-                <Link to="/login">Login</Link>
-              </MenuItem>
+              <Button component={Link} to="/login" color="inherit">
+                Login
+              </Button>
             )}
-          </Menu>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
