@@ -8,6 +8,7 @@ class User(db.Model, SerializerMixin):
     __tablename__='users'
 
     id = db.Column(db.Integer, primary_key=True)
+    escrow_id = db.Column(db.Integer, unique=True)
     username = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
@@ -28,11 +29,37 @@ class User(db.Model, SerializerMixin):
 
     #add relationship
     subscriptions = db.relationship('Subscription', back_populates='user')
-    escrow_accounts = db.relationship('EscrowAccount', back_populates='user')
+    escrow_account = db.relationship('EscrowAccount', back_populates='user', uselist=False)
     transactions = db.relationship('Transaction', back_populates='user')
     
     #add serialization rules
-    serialize_rules = ['-subscriptions', '-escrow_accounts', '-password', '-transactions']
+    serialize_rules = ['-subscriptions', '-escrow_account', '-password', '-transactions']
+
+class EscrowAccount(db.Model, SerializerMixin):
+    __tablename__='escrow_account'
+
+    id = db.Column(db.Integer, primary_key=True)
+    balance = db.Column(db.Float)
+    subscriptions = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship('User', back_populates='escrow_account')
+
+    serialize_rules = ['-user.escrow_account']
+
+class Service(db.Model, SerializerMixin):
+    __tablename__='services'
+
+    id = db.Column(db.Integer, primary_key=True)
+    company_name = db.Column(db.String)
+    description = db.Column(db.String)
+    amount = db.Column(db.Float)
+    logo = db.Column(db.String)
+
+
+    subscriptions = db.relationship('Subscription', back_populates='service')
+
+    serialize_rules = ['-subscriptions']
 
 class Subscription(db.Model, SerializerMixin):
     __tablename__='subscriptions'
@@ -53,43 +80,19 @@ class Subscription(db.Model, SerializerMixin):
     #add seralization rules
     serialize_rules = ['-user.subscriptions', '-transactions.subscriptions', '-service.subscriptions']
 
-class EscrowAccount(db.Model, SerializerMixin):
-    __tablename__='escrow_accounts'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    balance = db.Column(db.Float)
-
-    user = db.relationship('User', back_populates='escrow_accounts')
-    transactions = db.relationship('Transaction', back_populates='escrow_account')
-
-    serialize_rules = ['-user.escrow_accounts', '-transactions.escrow_account']
 
 class Transaction(db.Model, SerializerMixin):
     __tablename__='transactions'
 
     id = db.Column(db.Integer, primary_key=True)
-    escrow_id = db.Column(db.Integer, db.ForeignKey('escrow_accounts.id'))
     subscription_id = db.Column(db.Integer, db.ForeignKey('subscriptions.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    amount = db.Column(db.Float)
+    transaction_type = db.Column(db.String)
+    transaction_amount = db.Column(db.Float)
     date = db.Column(db.DateTime, server_default = db.func.now())
 
-    escrow_account = db.relationship('EscrowAccount', back_populates='transactions')
+    
     subscriptions = db.relationship('Subscription', back_populates='transactions')
     user = db.relationship('User', back_populates='transactions')
-
-    serialize_rules = ['-escrow_account', '-subscriptions']
-
-class Service(db.Model, SerializerMixin):
-    __tablename__='services'
-
-    id = db.Column(db.Integer, primary_key=True)
-    company_name = db.Column(db.String)
-    description = db.Column(db.String)
-    amount = db.Column(db.Float)
-
-
-    subscriptions = db.relationship('Subscription', back_populates='service')
-
     serialize_rules = ['-subscriptions']
+

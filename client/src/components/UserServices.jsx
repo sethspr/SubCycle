@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { get_transactions } from "../services/api.service";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 function UserServices({ userProfile }) {
   const { user } = useAuth();
@@ -53,31 +58,43 @@ function UserServices({ userProfile }) {
   }
 
   return (
-    <div>
+    <Box sx={{ mt: 4 }}>
       {userSubs.map((subscription) => (
-        <div key={subscription.id}>
-          <h2>{subscription.service.company_name}</h2>
-          <p>Due Date: {subscription.due_date}</p>
-          <p>Amount: {subscription.service.amount}</p>
-          <button onClick={() => handleViewTransactions(subscription)}>
-            {selectedServiceId === subscription.service.id
-              ? "Hide Transactions"
-              : "View Transactions"}
-          </button>
-          {selectedServiceId === subscription.service.id && (
-            <div>
-              <h3>Historical Transactions</h3>
-              {userTransactions.map((transaction) => (
-                <div key={transaction.id}>
-                  <p>Amount Debited: {transaction.amount}</p>
-                  <p>Date: {transaction.date}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <Box key={subscription.id} mb={2}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h6">
+                {subscription.service.company_name}
+              </Typography>
+              <Typography variant="body1">
+                Due Date: Monthly on day {subscription.due_date}.
+              </Typography>
+              <Typography variant="body1">
+                Amount: ${subscription.service.amount} per month
+              </Typography>
+              <Button onClick={() => handleViewTransactions(subscription)}>
+                {selectedServiceId === subscription.service.id
+                  ? "Hide Transactions"
+                  : "View Transactions"}
+              </Button>
+              {selectedServiceId === subscription.service.id && (
+                <Box mt={2}>
+                  <Typography variant="h6">Historical Transactions</Typography>
+                  {userTransactions.map((transaction) => (
+                    <Box key={transaction.id}>
+                      <Typography>
+                        Amount Debited: ${transaction.transaction_amount}
+                      </Typography>
+                      <Typography>Date: {transaction.date}</Typography>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+            </CardContent>
+          </Card>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 }
 

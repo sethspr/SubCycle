@@ -1,6 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/AuthContext';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
+import Button from "@mui/material/Button";
 
 function Logout() {
   const navigate = useNavigate();
@@ -8,11 +9,13 @@ function Logout() {
 
   const handleLogout = () => {
     logout();
-    navigate('/'); 
+    navigate("/");
   };
 
   return (
-    <button onClick={handleLogout}>Logout</button>
+    <Button color="inherit" onClick={handleLogout}>
+      Logout
+    </Button>
   );
 }
 

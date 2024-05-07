@@ -48,13 +48,24 @@ export async function post_new_user(formData) {
   return await call_public_api(url, "POST", _headers, body);
 }
 
+export async function add_sub_to_profile(serviceId, dueDate) {
+  const url = `${domain}/subscription/${serviceId}`;
+  const _headers = { "Content-Type": "application/json" };
+  const body = { service_id: serviceId, due_date: dueDate};
+
+  return await call_private_api(url, "POST", _headers, {
+    body: JSON.stringify(body),
+  });
+}
+
+
 export async function get_escrow_account(userId) {
-  const url = `${domain}/escrows/${userId}`;
+  const url = `${domain}/escrow/${userId}`;
   return await call_private_api(url, "GET");
 }
 
 export async function patch_escrow_account(userId, amount) {
-  const url = `${domain}/escrows/${userId}`;
+  const url = `${domain}/escrow/${userId}`;
   const _headers = { "Content-Type": "application/json" };
   const body = { balance: amount };
   return await call_private_api(url, "PATCH", _headers, {

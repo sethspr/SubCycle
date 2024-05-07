@@ -4,6 +4,11 @@ import {
   get_escrow_account,
   patch_escrow_account,
 } from "../services/api.service";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 function EscrowAccount() {
   const { user } = useAuth();
@@ -35,26 +40,30 @@ function EscrowAccount() {
   };
 
   return (
-    <div className="escrow-account">
-      <h2>Escrow Account</h2>
-      {account ? (
-        <div>
-          <p>Balance: {account.balance}</p>
-          <form onSubmit={handleAddFunds}>
-            <input
-              type="number"
-              value={newFunds}
-              onChange={(e) => setNewFunds(e.target.value)}
-              placeholder="Enter amount to add"
-            />
-            <button type="submit">Add Funds</button>
-          </form>
-        </div>
-      ) : (
-        <p>Loading account details...</p>
-      )}
-      {error && <p className="error">{error}</p>}
-    </div>
+    <Box sx={{ mt: 4 }}>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h6">Escrow Account</Typography>
+          {account ? (
+            <>
+              <Typography>Balance: ${account.balance}</Typography>
+              <form onSubmit={handleAddFunds}>
+                <input
+                  type="number"
+                  value={newFunds}
+                  onChange={(e) => setNewFunds(e.target.value)}
+                  placeholder="Enter amount to add"
+                />
+                <Button type="submit">Add Funds</Button>
+              </form>
+            </>
+          ) : (
+            <Typography>Loading account details...</Typography>
+          )}
+          {error && <Typography color="error">{error}</Typography>}
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 
