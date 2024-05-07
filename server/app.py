@@ -223,11 +223,11 @@ def create_subscription(user_id):
     service_id = data.get('service_id')
     due_date = data.get('due_date')
     
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if user is None:
         return {'error': 'User not found'}, 404
 
-    service = Service.query.get(service_id)
+    service = db.session.get(Service, service_id)
     if service is None:
         return {'error': 'Service not found'}, 404
 
