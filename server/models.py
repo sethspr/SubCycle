@@ -54,6 +54,7 @@ class Service(db.Model, SerializerMixin):
     company_name = db.Column(db.String)
     description = db.Column(db.String)
     amount = db.Column(db.Float)
+    logo = db.Column(db.String)
 
 
     subscriptions = db.relationship('Subscription', back_populates='service')
