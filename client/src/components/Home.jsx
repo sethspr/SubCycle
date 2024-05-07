@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import '../CSS/Home.css' 
-
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import "../CSS/Home.css";
 
 const Home = () => {
   return (
@@ -58,14 +59,15 @@ const Home = () => {
           subscription experience. Sign up for SubCycle now and start enjoying
           the benefits of effortless subscription management and budgeting.
         </p>
-        <div className="button-container">
+
+        <Stack spacing={2} direction="row">
           <Link to="/signup">
-            <button className="primary">Sign Up Now</button>
+            <Button variant="contained">Sign up now!</Button>
           </Link>
           <Link to="/subscriptions">
-            <button className="secondary">Learn More</button>
+            <Button variant="text">Learn more...</Button>
           </Link>
-        </div>
+        </Stack>
       </div>
     </div>
   );
