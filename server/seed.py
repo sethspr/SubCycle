@@ -84,36 +84,43 @@ with app.app_context():
             company_name = 'Netflix',
             description = 'Netflix is an American subscription video on-demand over-the-top streaming service. The service primarily distributes original and acquired films and television shows from various genres, and it is available internationally in multiple languages.',
             amount='15.49',
+            logo='https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png'
         ),
         Service(
             company_name = 'Spotify',
             description='Spotify is a digital music streaming service. It gives you instant access to its vast online library of music and podcasts, allowing you to listen to any content of your choice at any time. You will find millions of songs from a variety of genres and artists, from obscure indie rock and top 40 pop to movie soundtracks and classical music. It also has a complex algorithm to recommend music based on your listening history, as well as curated playlists and internet radio stations.',
             amount='10.99',
+            logo='https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/2880px-Spotify_logo_with_text.svg.png'
         ),
         Service(
             company_name = 'Hulu',
             description='Hulu is a popular streaming service offering a wide range of TV shows, movies, and original content. It features a mix of current and classic programming, including exclusive series and next-day access to many network shows. With customizable subscription options and a user-friendly interface, Hulu provides viewers with a flexible and diverse entertainment experience.',
             amount='7.99',
+            logo='https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hulu_2019.svg/2880px-Hulu_2019.svg.png'
         ),
         Service(
             company_name = 'Disney+',
             description='Disney+ is a premium streaming platform showcasing the iconic content of The Walt Disney Company, including beloved classics, blockbuster films, and exclusive original series. With its extensive library spanning Disney, Pixar, Marvel, Star Wars, and National Geographic, Disney+ caters to audiences of all ages and interests. Offering a seamless viewing experience across devices and the option for offline downloads, Disney+ has quickly become a go-to destination for family-friendly entertainment.',
             amount='9.99',
+            logo='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Disney%2B_logo.svg/2560px-Disney%2B_logo.svg.png'
         ),
         Service(
             company_name = 'ESPN+',
             description='ESPN+ is a subscription-based sports streaming service that offers a wide range of live and on-demand sports content. From exclusive UFC fights to live games from MLB, NHL, and MLS, ESPN+ provides fans with access to a diverse selection of sports programming. With original shows, documentaries, and analysis, ESPN+ enhances the sports viewing experience for enthusiasts across various devices.',
             amount='10.99',
+            logo='https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/ESPN_Plus.svg/2880px-ESPN_Plus.svg.png'
         ),
         Service(
             company_name = 'MAX',
             description='MAX is a comprehensive streaming service offered by WarnerMedia, featuring an extensive library of movies and TV shows. With a focus on blockbuster films, HBO series, and exclusive originals, MAX provides subscribers with a premium entertainment experience. Offering a mix of classic favorites and new releases, MAX caters to a wide range of tastes and interests.',
             amount='15.99',
+            logo='https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Max_logo.svg/2880px-Max_logo.svg.png'
         ),
         Service(
             company_name = 'YouTube TV',
             description='YouTube TV is a subscription-based live TV streaming service offering access to major broadcast and cable networks. With a user-friendly interface and unlimited cloud DVR storage, YouTube TV allows subscribers to watch live TV and on-demand content anytime, anywhere. Offering a wide range of channels and the flexibility to stream on multiple devices simultaneously, YouTube TV provides a convenient alternative to traditional cable TV services.',
             amount='72.99',
+            logo='https://upload.wikimedia.org/wikipedia/commons/f/f7/YouTube_TV_logo.svg'
         ),
 
 
