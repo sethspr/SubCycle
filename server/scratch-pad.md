@@ -200,3 +200,26 @@ cost_per_month: float
 
 - `GET /services` // gets all services
 - `GET /services/{service-id}` // get specific service
+
+
+##### Last minute touchups
+- login.jxs
+    |--- after sign in the `login successful message persists`
+- SubscriptionList.jsx
+    |--- clean up card spacing
+    |--- once logged in, when adding a subscription only Netflix persists `fetch issue`
+    |--- once logged in, when after adding a subscription, manual refresh of page is requried `need fix`
+    |--- once logged in, ability to add a due date after subscription has been added to profile. 
+- UserProfile.jsx 
+    |--- format `Link subscriptions to profile ` button
+    |--- escrow account format balance to have decimal/float (works if there is actually cents in the $$)
+    |--- After new user sign up, no subscriptions persists once added 
+- Navbar.jsx
+    |--- Icon button for login no longer shows the little human head
+
+
+###### Stretch (if time allows)
+- SubscriptionList.jsx
+    |--- Delete subscription, cascading. 
+
+
