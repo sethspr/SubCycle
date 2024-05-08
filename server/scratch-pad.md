@@ -1,7 +1,7 @@
 
 TODO:
 
-- Subscriptions page, should appear in the bar when the user is not signed in
+- #### Subscriptions page, should appear in the bar when the user is not signed in
 - Remove `<h1>Supported Subscriptions</h1>` from subscriptionList and put it on subscription page
 - Add functionality to the "View transactions" icon on each card
 - Always show the card list on user profile
@@ -9,7 +9,7 @@ TODO:
 - Next to welcome back, add the escrow account total at the top of the page
 - Fix the errors on the subscriptionList component (the user is not populated at all times when the effect is run)
 - Remove extra console.log/console.dirs
-- Add route to remove a subscription from user's subs
+- #### Add route to remove a subscription from user's subs
 - Add route to update a subscriptions due date
 
 
