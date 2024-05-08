@@ -39,10 +39,9 @@ function UserServices({ userProfile }) {
         setUserTransactions([]);
       } else {
         setSelectedServiceId(user_sub.service.id);
-        const response = await get_transactions();
+        const response = await get_transactions(user.id);
         const filteredTransactions = response.data.filter(
           (user_transaction) => 
-            user_transaction.user_id === user.id &&
             user_transaction.subscription_id === user_sub.id
         );
         // console.log(filteredTransactions)
