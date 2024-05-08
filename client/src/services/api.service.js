@@ -22,8 +22,8 @@ export async function check_session() {
   return await call_private_api(url, "GET");
 }
 
-export async function get_subscriptions() {
-  const url = `${domain}/subscriptions`;
+export async function get_subscriptions(userId) {
+  const url = `${domain}/subscriptions/${userId}`;
 
   return await call_private_api(url, "GET");
 }
@@ -34,8 +34,8 @@ export async function get_services() {
   return await call_private_api(url, "GET");
 }
 
-export async function get_transactions() {
-  const url = `${domain}/transactions`;
+export async function get_transactions(userID) {
+  const url = `${domain}/transactions/${userID}`;
 
   return await call_private_api(url, "GET");
 }
@@ -48,16 +48,15 @@ export async function post_new_user(formData) {
   return await call_public_api(url, "POST", _headers, body);
 }
 
-export async function add_sub_to_profile(serviceId, dueDate) {
-  const url = `${domain}/subscription/${serviceId}`;
+export async function add_sub_to_profile(userId, serviceId) {
+  const url = `${domain}/subscription/${userId}`;
   const _headers = { "Content-Type": "application/json" };
-  const body = { service_id: serviceId, due_date: dueDate};
+  const body = { service_id: serviceId };
 
   return await call_private_api(url, "POST", _headers, {
     body: JSON.stringify(body),
   });
 }
-
 
 export async function get_escrow_account(userId) {
   const url = `${domain}/escrow/${userId}`;

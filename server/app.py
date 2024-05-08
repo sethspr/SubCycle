@@ -76,50 +76,20 @@ def get_all_subscriptions():
     return subs_dict, 200
 
 @app.route('/subscriptions/<int:id>', methods=['GET'])
-def sub_by_id(id):
-    sub_id = Subscription.query.filter(Subscription.id == id).first()
+def subs_by_id(id):
+    user_subs = Subscription.query.filter(Subscription.user_id == id).all()
 
-    if sub_id:
-        return sub_id.to_dict(), 200
+    user_subs_dict = []
+    for sub in user_subs:
+        user_subs_dict.append(sub.to_dict())
+
+
+    if user_subs:
+        return user_subs_dict, 200
     else:
         return {'Error': 'Subscription not in database'}, 404
 
 ### ------------------------------------------------###------------------------------------------------ ###
-
-@app.route('/escrow', methods=['GET', 'POST'])
-def get_all_accounts():
-    if request.method == 'GET':
-        all_accounts = EscrowAccount.query.all()
-
-        account_dict = []
-        for account in all_accounts:
-            account_dict.append(account.to_dict())
-        return account_dict, 200
-    
-    elif request.method == 'POST':
-            data = request.get_json()
-            user_id = data.get('user_id')
-            balance = data.get('balance')
-
-            if not user_id or balance is None:
-                return jsonify({'Error': 'Missing user ID or balance'}), 400
-
-            account = EscrowAccount.query.filter_by(user_id=user_id).first()
-
-            if account:
-                account.balance += balance 
-                db.session.commit()
-                return jsonify(account.to_dict()), 200
-            else:
-                # Create a new account if not exists
-                try:
-                    new_account = EscrowAccount(user_id=user_id, balance=balance)
-                    db.session.add(new_account)
-                    db.session.commit()
-                    return jsonify(new_account.to_dict()), 201
-                except Exception as e:
-                    db.session.rollback()
-                    return jsonify({'Error': str(e)}), 500
     
 @app.route('/escrow/<int:id>', methods=['GET', 'PATCH'])
 def account_by_id(id):
@@ -149,12 +119,12 @@ def account_by_id(id):
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
-@app.route('/transactions', methods=['GET'])
-def get_all_transactions():
-    all_transactions = Transaction.query.all()
+@app.route('/transactions/<int:user_id>', methods=['GET'])
+def get_all_transactions(user_id):
+    user_transactions = Transaction.query.filter(Transaction.user_id == user_id).all()
 
     transaction_dict = []
-    for transaction in all_transactions:
+    for transaction in user_transactions:
         transaction_dict.append(transaction.to_dict())
     return transaction_dict, 200
 
@@ -221,7 +191,6 @@ def check_session():
 def create_subscription(user_id):
     data = request.get_json()
     service_id = data.get('service_id')
-    due_date = data.get('due_date')
     
     user = db.session.get(User, user_id)
     if user is None:
@@ -231,7 +200,7 @@ def create_subscription(user_id):
     if service is None:
         return {'error': 'Service not found'}, 404
 
-    new_subscription = Subscription(user_id=user_id, service_id=service_id, due_date=due_date)
+    new_subscription = Subscription(user_id=user_id, service_id=service_id)
     db.session.add(new_subscription)
     db.session.commit()
 

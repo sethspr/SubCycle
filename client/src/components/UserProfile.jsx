@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { get_subscriptions, get_escrow_account } from "../services/api.service";
+import { get_subscriptions } from "../services/api.service";
 import UserServices from "./UserServices";
 import EscrowAccount from "./EscrowAccount";
 import SubscriptionList from "./SubscriptionList";
@@ -16,7 +16,10 @@ function UserProfile() {
 
   useEffect(() => {
     const getUserProfile = async () => {
-      const subs = await get_subscriptions();
+      if (!user) return;
+
+      const subs = await get_subscriptions(user.id);
+      console.dir(subs.data);
 
       setUserProfile(subs.data);
     };
@@ -25,7 +28,7 @@ function UserProfile() {
   }, [user]);
 
   return (
-    <Box sx={{ mx: "auto", maxWidth: 600, p: 2 }}>
+    <Box sx={{ mx: "auto", p: 2 }}>
       {user && (
         <Typography variant="h4">Welcome back, {user.username}!</Typography>
       )}

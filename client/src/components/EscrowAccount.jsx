@@ -18,6 +18,8 @@ function EscrowAccount() {
 
   useEffect(() => {
     const fetchAccount = async () => {
+      if (!user) return;
+
       await get_escrow_account(user.id)
         .then((response) => setAccount(response.data))
         .catch((e) => console.error("Error fetching escrow account!", e));
