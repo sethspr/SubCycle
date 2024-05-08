@@ -56,10 +56,21 @@
 
 .subscription-grid {
   display: grid;
-  gap: 5px;
+  gap: 15px;
 
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
 
   align-items: stretch;
+  justify-content: center;
+}
+
+.subscription-card {
+  width: 100%;
+  justify-self: center;
+  transition: 0.3s ease-in-out all;
+}
+
+.subscription-card:hover {
+  transform: scale(1.1);
 }
