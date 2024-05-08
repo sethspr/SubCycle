@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 function UserProfile() {
   const { user } = useAuth();
@@ -34,11 +35,23 @@ function UserProfile() {
       )}
       <EscrowAccount />
       <Box mt={2} mb={2}>
-        <button onClick={() => setShowSubscriptionList(!showSubscriptionList)}>
-          {showSubscriptionList
-            ? "Hide Subscriptions"
-            : "Link Subscriptions to Profile"}
-        </button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 2,
+              width: "auto",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            onClick={() => setShowSubscriptionList(!showSubscriptionList)}
+          >
+            {showSubscriptionList
+              ? "Hide Subscriptions"
+              : "Link Subscriptions to Profile"}
+          </Button>
+        </div>
       </Box>
       {showSubscriptionList && <SubscriptionList />}
       <UserServices userProfile={userProfile} />
