@@ -206,6 +206,31 @@ def create_subscription(user_id):
 
     return new_subscription.to_dict(), 201
 
+@app.route('/subscription/<int:user_id>', methods=['DELETE'])
+def delete_subscription(user_id):
+    data = request.get_json()
+    service_id = data.get('service_id')
+
+    user = db.session.get(User, user_id)
+    if user is None:
+        return {'error': 'User not found'}, 404
+
+    service = db.session.get(Service, service_id)
+    if service is None:
+        return {'error': 'Service not found'}, 404
+
+    subscription = db.session.query(Subscription).filter_by(user_id=user_id, service_id=service_id).first()
+    if subscription is None:
+        return {'error': 'Subscription not found'}, 404
+
+    db.session.delete(subscription)
+    db.session.commit()
+
+    return {'message': 'Subscription deleted successfully'}, 200
+
+    
+
+
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
