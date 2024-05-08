@@ -58,6 +58,16 @@ export async function add_sub_to_profile(userId, serviceId) {
   });
 }
 
+export async function remove_sub_from_profile(userId, serviceId) {
+  const url = `${domain}/subscription/${userId}`;
+  const _headers = { "Content-Type": "application/json" };
+  const body = { service_id: serviceId };
+
+  return await call_private_api(url, "DELETE", _headers, {
+    body: JSON.stringify(body),
+  });
+}
+
 export async function get_escrow_account(userId) {
   const url = `${domain}/escrow/${userId}`;
   return await call_private_api(url, "GET");
