@@ -9,6 +9,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 function EscrowAccount() {
   const { user } = useAuth();
@@ -50,13 +51,23 @@ function EscrowAccount() {
             <>
               <Typography>Balance: ${account.balance}</Typography>
               <form onSubmit={handleAddFunds}>
-                <input
+                <TextField
                   type="number"
+                  margin="none"
                   value={newFunds}
                   onChange={(e) => setNewFunds(e.target.value)}
                   placeholder="Enter amount to add"
+                  sx={{ mt: 1, width: '15%'}}
                 />
-                <Button type="submit">Add Funds</Button>
+                <Box mt={1}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 1, width: '15%' }}
+                  >
+                    Add Funds
+                  </Button>
+                </Box>
               </form>
             </>
           ) : (

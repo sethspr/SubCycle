@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
   }
   
   .content {
@@ -28,7 +27,7 @@
   
   .primary {
     background-color: #007bff;
-    color: #fff;
+    color: #ffffff;
     border: none;
     border-radius: 3px;
     padding: 10px 15px;

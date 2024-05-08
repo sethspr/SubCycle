@@ -3,6 +3,8 @@ import {
   add_sub_to_profile,
   get_services,
   get_subscriptions,
+  remove_sub_from_profile,
+  update_sub_due_date,
 } from "../services/api.service";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -94,6 +96,52 @@ function SubscriptionList() {
       });
   };
 
+  const handleDeleteSubscription = async (serviceId) => {
+    let alert_status = "";
+
+    await remove_sub_from_profile(user.id, serviceId)
+      .then(async () => {
+        alert_status = "Subscription removed successfully!";
+
+        await get_subscriptions(user.id)
+          .then((response) => {
+            setSubscriptions(response.data);
+          })
+          .catch(() => {
+            alert_status = "Failed to query subscriptions";
+          });
+      })
+      .catch(() => {
+        alert_status = "Failed to remove subscription. Please try again later.";
+      })
+      .finally(() => {
+        alert(alert_status);
+      });
+  };
+
+  const handleUpdateSubscription = async (serviceId, newDueDate) => {
+    let alert_status = "";
+
+    await update_sub_due_date(user.id, serviceId, newDueDate)
+      .then(async () => {
+        alert_status = "Subscription updated successfully!";
+
+        await get_subscriptions(user.id)
+          .then((response) => {
+            setSubscriptions(response.data);
+          })
+          .catch(() => {
+            alert_status = "Failed to query subscriptions";
+          });
+      })
+      .catch(() => {
+        alert_status = "Failed to update subscription. Please try again later.";
+      })
+      .finally(() => {
+        alert(alert_status);
+      });
+  };
+
   const isSignedIn = () => {
     return user && "email" in user;
   };
@@ -147,14 +195,12 @@ function SubscriptionList() {
                 </Tooltip>
 
                 {isSignedIn() && isSubscribed(service.id) && (
-                 <Tooltip title="View transactions">
-                 <IconButton color="secondary">
-                   <ReceiptLongIcon />
-                 </IconButton>
-               </Tooltip>
-              )}
-
-               
+                  <Tooltip title="View transactions">
+                    <IconButton color="secondary">
+                      <ReceiptLongIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
               </div>
 
               {isSignedIn() && !isSubscribed(service.id) && (
@@ -170,11 +216,21 @@ function SubscriptionList() {
 
               {isSignedIn() && isSubscribed(service.id) && (
                 <div className="flex-auto justify-end items-center">
-                  <Button size="small" color="primary">
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() =>
+                      handleUpdateSubscription(service.id, newDueDate)
+                    }
+                  >
                     Edit
                   </Button>
 
-                  <Button size="small" color="error">
+                  <Button
+                    size="small"
+                    color="error"
+                    onClick={() => handleDeleteSubscription(service.id)}
+                  >
                     Remove
                   </Button>
                 </div>

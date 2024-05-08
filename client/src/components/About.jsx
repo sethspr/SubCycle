@@ -8,6 +8,10 @@ import Box from "@mui/material/Box";
 import GithubPhoto from "../Assets/github-qr-code.png";
 import LinkedInPhoto from "../Assets/Linked-in-qr-code.png";
 import ProfilePic from "../Assets/profile-pic.png";
+import PythonLogo from "../Assets/python-icon.png"
+import ReactLogo from "../Assets/react-icon.png"
+import MuiLogo from "../Assets/mui-icon.png"
+import FlaskLogo from "../Assets/flask-icon.png"
 
 const AboutPage = () => {
   return (
@@ -21,8 +25,8 @@ const AboutPage = () => {
           minHeight: "50vh",
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          About Me
+        <Typography variant="h4" gutterBottom mt={2} mb={2}>
+          ABOUT THE PROJECT
         </Typography>
         <Avatar
           alt="Profile Picture"
@@ -30,7 +34,6 @@ const AboutPage = () => {
           sx={{ width: 300, height: 300, marginBottom: 2 }}
         />
         <Grid container spacing={3} alignItems="center">
-          {/* GitHub Link */}
           <Grid item xs={12} md={6} sx={{ textAlign: "center" }}>
             <Box
               sx={{
@@ -55,7 +58,6 @@ const AboutPage = () => {
               </Typography>
             </Box>
           </Grid>
-          {/* LinkedIn Link */}
           <Grid item xs={12} md={6} sx={{ textAlign: "center" }}>
             <Box
               sx={{
@@ -81,11 +83,71 @@ const AboutPage = () => {
             </Box>
           </Grid>
         </Grid>
-        {/* Inspiration Message */}
-        <Typography variant="body1" paragraph>
-          This webpage was created as part of the Phase 5 final project for
-          Flatiron School in NYC.
+        <Typography variant="h4" gutterBottom mt={2} mb={2}>
+          TECH STACK
         </Typography>
+        <Grid container spacing={3} justifyContent="center">
+          <Grid item xs={6} md={3} sx={{ textAlign: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={PythonLogo}
+                alt="Python Logo"
+                style={{ width: "240px", height: "240px" }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={6} md={3} sx={{ textAlign: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={ReactLogo}
+                alt="React Logo"
+                style={{ width: "240px", height: "240px" }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={6} md={3} sx={{ textAlign: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={MuiLogo}
+                alt="Image 3"
+                style={{ width: "240px", height: "240px" }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={6} md={3} sx={{ textAlign: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={FlaskLogo}
+                alt="Image 4"
+                style={{ width: "240px", height: "240px" }}
+              />
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </Container>
   );

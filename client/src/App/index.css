@@ -12,7 +12,7 @@
 }
 
 .top-header h1 {
-  margin: 0; /* Remove default margin */
+  margin: 0; 
   padding-right: 10px;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
@@ -27,13 +27,13 @@
 }
 
 .navbar ul li {
-  margin-right: 20px; /* Add spacing between list items */
+  margin-right: 20px; 
   display: flex;
   justify-content: space-between;
 }
 
 .navbar ul li:last-child {
-  margin-right: 0; /* Remove margin from the last list item to prevent extra spacing */
+  margin-right: 0; 
 }
 
 .logo-link {
