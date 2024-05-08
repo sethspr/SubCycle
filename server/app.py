@@ -228,7 +228,20 @@ def delete_subscription(user_id):
 
     return {'message': 'Subscription deleted successfully'}, 200
 
-    
+@app.route('/subscription/<int:user_id>', methods=['PATCH'])
+def update_subscription(user_id):
+    data = request.get_json()
+    service_id = data.get('service_id')
+    new_due_date = data.get('due_date')
+
+    subscription = db.session.query(Subscription).filter_by(user_id=user_id, service_id=service_id).first()
+    if subscription is None:
+        return {'error': 'Subscription not found'}, 404
+
+    subscription.due_date = new_due_date
+    db.session.commit()
+
+    return jsonify(subscription.to_dict()), 200
 
 
 
