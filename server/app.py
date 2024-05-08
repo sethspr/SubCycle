@@ -206,53 +206,6 @@ def create_subscription(user_id):
 
     return new_subscription.to_dict(), 201
 
-# add existing subscription service from db to user account
-# @app.route('/user/<int:user_id>/add-subscription/<int:subscription_id>', methods=['PATCH'])
-# def add_subscription_to_user(user_id, subscription_id):
-#     # query for the user and the subscription in the database
-#     user = User.query.get(user_id)
-#     subscription = Subscription.query.get(subscription_id)
-
-#     if user is None or subscription is None:
-#         return {'error': 'User or Subscription not found'}, 404
-
-#     # Add the subscription to the user's subscriptions
-#     user.subscriptions.append(subscription)
-
-#     db.session.commit()
-
-#     return user.to_dict(), 200
-
-# @app.route('/subscription/<int:subscription_id>', methods=['DELETE'])
-# def delete_subscription(subscription_id):
-#     subscriptions = []
-
-#     if subscription_id not in subscriptions:
-#         return {'error': 'Subscription not found'}, 404
-    
-#     del subscriptions[subscription_id]
-#     return {'message': 'Subscription deleted successfully'}, 200
-
-
-# @app.route('/subscriptions/<int:subscription_id>', methods=['GET'])
-# def get_subscription(subscription_id):
-#     subscriptions = []
-#     if subscription_id not in subscriptions:
-#         return {'error': 'Subscription not found'}, 404
-    
-#     return subscriptions[subscription_id].to_dict(), 200
-
-# @app.route('/subscription/<int:subscription_id>/change-due-date', methods=['PATCH'])
-# def update_subscription_due_date(subscription_id):
-#     subscriptions = []
-#     if subscription_id not in subscriptions:
-#         return {'error': 'Subscription not found'}, 404
-    
-#     data = request.get_json()
-#     new_due_date = data.get('due_date')
-    
-#     subscriptions[subscription_id]['due_date'] = new_due_date
-#     return subscriptions[subscription_id].to_dict(), 200
 
 ### ------------------------------------------------###------------------------------------------------ ###
 
