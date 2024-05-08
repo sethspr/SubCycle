@@ -32,6 +32,7 @@ function UserProfile() {
       {user && (
         <Typography variant="h4">Welcome back, {user.username}!</Typography>
       )}
+      <EscrowAccount />
       <Box mt={2} mb={2}>
         <button onClick={() => setShowSubscriptionList(!showSubscriptionList)}>
           {showSubscriptionList
@@ -40,7 +41,6 @@ function UserProfile() {
         </button>
       </Box>
       {showSubscriptionList && <SubscriptionList />}
-      <EscrowAccount />
       <UserServices userProfile={userProfile} />
     </Box>
   );
