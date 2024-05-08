@@ -68,6 +68,16 @@ export async function remove_sub_from_profile(userId, serviceId) {
   });
 }
 
+export async function update_sub_due_date(userId, serviceId, newDueDate) {
+  const url = `${domain}/subscription/${userId}`;
+  const _headers = { "Content-Type": "application/json" };
+  const body = { service_id: serviceId, due_date: newDueDate };
+
+  return await call_private_api(url, "PATCH", _headers, {
+    body: JSON.stringify(body),
+  });
+}
+
 export async function get_escrow_account(userId) {
   const url = `${domain}/escrow/${userId}`;
   return await call_private_api(url, "GET");
