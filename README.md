@@ -17,14 +17,14 @@ To get started with SubCycle, follow these steps:
    ```bash
    git clone https://github.com/yourusername/subcycle.git
 
-2. Setup: Install dependencies and set up your environment.
+2. Setup: Install dependencies in the '/server' directory and set up your environment.
 
     ```bash
     cd server
     pipenv install
     pipenv shell
 
-3. Database Initialization: Initialize the database and apply migrations.
+3. Database Initialization: Initialize the database in the '/server' directory and apply the initial migrations.
 
     ```bash
     flask db init
@@ -32,15 +32,14 @@ To get started with SubCycle, follow these steps:
     flask db upgrade
     python seed.py
 
-4. Run the Application: Start the Flask development server.
+4. Run the API.
 
     ```bash
-    flask run
+    python app.py
 
-5. Access SubCycle frontend. Run the commands below. Then, open your web browser and navigate to http://localhost:5000 (your port may vary from this) to access SubCycle.
+5. Access SubCycle frontend. Change directories to '/client' and run the commands below. Then, open your web browser and navigate to http://localhost:5555 (your port may vary from this) to access SubCycle. 
 
     ```bash
-    cd client
     npm install
     npm run dev
 
@@ -55,8 +54,8 @@ To get started with SubCycle, follow these steps:
 
 - **Python**: Backend development using the Flask framework.
 - **SQLAlchemy**: Database ORM for interacting with the database.
-- **React**: Frontend development for the user interface.
-- **HTML/CSS**: Styling and layout of the web application.
+- **React & Vite**: Frontend development for the user interface.
+- **HTML/CSS/Material UI**: Styling and layout of the web application.
 
 ## Contributing
 
